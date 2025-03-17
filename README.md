@@ -6,4 +6,4 @@
 
 Špecifikácia projektu: https://github.com/Thohmass/PSYCH/blob/main/Hladamspychologa%20Specification.pdf
 
-ERD databázy: https://github.com/Thohmass/PSYCH/blob/main/hladampsychologa%20ERD.pdf
+ERD databázy: https://github.com/Thohmass/PSYCH/blob/main/Hladampsychologa%20ERD.pdf
