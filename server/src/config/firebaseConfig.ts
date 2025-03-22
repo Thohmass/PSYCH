@@ -1,6 +1,5 @@
 import admin from "firebase-admin";
-// @ts-ignore
-import * as serviceAccount from "../hladampsychologaFirebaseAdminSDK.json";
+import * as serviceAccount from "./hladampsychologaFirebaseAdminSDK.json";
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
@@ -9,4 +8,4 @@ admin.initializeApp({
 
 console.log("✅ Firebase Admin SDK initialized successfully");
 
-export default admin;
+export const db = admin.firestore();
