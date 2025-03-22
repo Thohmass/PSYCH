@@ -1,4 +1,4 @@
-/server/config/hladampsychologaFirebaseAdminSDK.json
+/server/src/config/hladampsychologaFirebaseAdminSDK.json
 /client/node_modules/
 /server/node_modules/
 /server/package.json
