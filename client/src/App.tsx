@@ -3,15 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import SearchForm from './components/SearchForm';
 import PsychologistProfilePage from './pages/PsychologistProfilePage';
-
-const SearchResultsPage = () => {
-  return (
-      <div>
-        <h2>Výsledky vyhľadávania</h2>
-        {/* TODO výsledky vyhľadávania*/}
-      </div>
-  );
-};
+import SearchResultsPage from './pages/SearchResultsPage';
 
 function App() {
   return (
@@ -24,7 +16,6 @@ function App() {
             <li>
               <Link to="/search">Výsledky vyhľadávania</Link>
             </li>
-            {/* Príklad odkazu na profil psychológa s konkrétnym ID */}
             <li>
               <Link to="/psycholog/1">Profil psychológa s ID 1</Link>
             </li>

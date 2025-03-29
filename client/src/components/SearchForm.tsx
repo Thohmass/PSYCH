@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importujte useNavigate
 
 interface SearchFormProps {}
 
@@ -6,12 +7,12 @@ const SearchForm: React.FC<SearchFormProps> = () => {
     const [keywords, setKeywords] = useState('');
     const [location, setLocation] = useState('');
     const [specialization, setSpecialization] = useState('');
+    const navigate = useNavigate(); // Inicializujte hook useNavigate
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         console.log('Vyhľadávacie kritériá:', { keywords, location, specialization });
-        // Tu by sa v neskorších týždňoch implementovala logika pre volanie backendu
-        // V tomto týždni by ste tu mohli simulovať vyhľadávanie pomocou mock dát
+        navigate('/search');
     };
 
     return (

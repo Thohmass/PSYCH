@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Psychologist {
+export interface Psychologist {
     PsychologistID: string;
     Name: string;
     LastName: string;
@@ -21,7 +21,7 @@ interface Psychologist {
     Locations: string;
 }
 
-interface PsychologistCardProps {
+export interface PsychologistCardProps {
     psychologist: Psychologist;
 }
 
