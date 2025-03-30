@@ -1,23 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-export interface Psychologist {
-    PsychologistID: string;
-    Name: string;
-    LastName: string;
-    Description: string;
-    Qualification: string;
-    Experience: string;
-    Languages: string;
-    PriceRange: string;
-    Address: string;
-    ContactInfo: string;
-    PhotoURL?: string;
-    OnlineTherapyOption: boolean;
-    Specializations: string;
-    TherapyTypes: string;
-    Locations: string;
-}
+import { Psychologist } from "../../../shared/PsychologistInterfaces";
 
 export interface PsychologistCardProps {
     psychologist: Psychologist;
@@ -32,7 +15,7 @@ const PsychologistCard: React.FC<PsychologistCardProps> = ({ psychologist }) => 
                      style={{ maxWidth: '100px', height: 'auto' }} />
             )}
             <h3>
-                <Link to={`/psycholog/${psychologist.PsychologistID}`}>
+                <Link to={`/psycholog/${psychologist.id}`}>
                     {psychologist.Name} {psychologist.LastName}
                 </Link>
             </h3>

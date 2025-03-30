@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getPsychologists } from '../services/psychologistService';
-import PsychologistCard, {Psychologist} from '../components/PsychologistCard';
+import PsychologistCard from '../components/PsychologistCard';
+import {Psychologist } from "../../../shared/PsychologistInterfaces";
 
 const SearchResultsPage: React.FC = () => {
     const [psychologistsList, setPsychologistsList] = useState([]);
@@ -37,7 +38,7 @@ const SearchResultsPage: React.FC = () => {
         <div>
             <h2>Výsledky vyhľadávania</h2>
             {psychologistsList.map((psychologist: Psychologist) => (
-                <PsychologistCard key={psychologist.PsychologistID} psychologist={psychologist} />
+                <PsychologistCard key={psychologist.id} psychologist={psychologist} />
             ))}
         </div>
     );

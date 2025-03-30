@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { db } from '../config/firebaseConfig';
+import { Psychologist } from "../../../shared/PsychologistInterfaces";
 
 // Referencia na kolekciu 'psychologists' v Firestore
 const psychologistsCollection = db.collection('psychologists');
@@ -22,11 +23,12 @@ export const createPsychologist = async (req: Request, res: Response) => {
 export const getAllPsychologists = async (req: Request, res: Response) => {
     try {
         const snapshot = await psychologistsCollection.get();
-        const psychologists: any[] = []; // TODO Nastaviť rozumný datatype
+        const psychologists: Psychologist[] = [];
         snapshot.forEach(doc => {
+            const data = doc.data() as Omit<Psychologist, 'id'>; // Pretypujeme doc.data() na Psychologist bez 'id'
             psychologists.push({
                 id: doc.id,
-                ...doc.data(),
+                ...data,
             });
         });
         res.status(200).json(psychologists);

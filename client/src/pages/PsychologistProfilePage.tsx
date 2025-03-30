@@ -1,25 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPsychologistById } from '../services/psychologistService';
-
-// Definícia interfacu pre Psychológa (mala by byť konzistentná s PsychologistCard)
-interface Psychologist {
-    PsychologistID: string;
-    Name: string;
-    LastName: string;
-    Description: string;
-    Qualification: string;
-    Experience: string;
-    Languages: string[];
-    PriceRange: string;
-    Address: string;
-    ContactInfo: string;
-    PhotoURL?: string;
-    OnlineTherapyOption: boolean;
-    Specializations: string[];
-    TherapyTypes: string[];
-    Locations: string[];
-}
+import { Psychologist } from "../../../shared/PsychologistInterfaces";
 
 const PsychologistProfilePage: React.FC = () => {
     const { id } = useParams<{ id?: string }>();
