@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { psychologists } from '../utils/mockData'; // Predpokladáme, že máte súbor s mock dátami
+import { getPsychologistById } from '../services/psychologistService';
 
 // Definícia interfacu pre Psychológa (mala by byť konzistentná s PsychologistCard)
 interface Psychologist {
@@ -13,10 +13,7 @@ interface Psychologist {
     Languages: string[];
     PriceRange: string;
     Address: string;
-    Contact: {
-        phone: string;
-        email: string;
-    };
+    ContactInfo: string;
     PhotoURL?: string;
     OnlineTherapyOption: boolean;
     Specializations: string[];
@@ -25,16 +22,41 @@ interface Psychologist {
 }
 
 const PsychologistProfilePage: React.FC = () => {
-    const { id } = useParams<{ id: string }>(); // Získame ID psychológa z URL parametrov
+    const { id } = useParams<{ id?: string }>();
     const [psychologist, setPsychologist] = useState<Psychologist | undefined>(undefined);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        // Simulácia načítania dát psychológa na základe ID z mock dát
-        const foundPsychologist = psychologists.find(
-            (psy) => psy.PsychologistID === id
-        );
-        setPsychologist(foundPsychologist);
+        const fetchPsychologist = async () => {
+            if (id) {
+                setLoading(true);
+                setError(null);
+                try {
+                    const data = await getPsychologistById(id);
+                    setPsychologist(data);
+                } catch (err: any) {
+                    setError('Nepodarilo sa načítať profil psychológa.');
+                    console.error('Chyba pri načítavaní profilu psychológa:', err);
+                } finally {
+                    setLoading(false);
+                }
+            } else {
+                setError('Chýba ID psychológa v URL.');
+                setLoading(false);
+            }
+        };
+
+        fetchPsychologist();
     }, [id]);
+
+    if (loading) {
+        return <div>Načítavam profil psychológa...</div>;
+    }
+
+    if (error) {
+        return <div>Chyba: {error}</div>;
+    }
 
     if (!psychologist) {
         return <div>Psychológ nebol nájdený.</div>;
@@ -44,7 +66,8 @@ const PsychologistProfilePage: React.FC = () => {
         <div className="psychologist-profile-page">
             <h2>{psychologist.Name} {psychologist.LastName}</h2>
             {psychologist.PhotoURL && (
-                <img src={psychologist.PhotoURL} alt={`${psychologist.Name} ${psychologist.LastName}`} style={{ maxWidth: '200px', height: 'auto' }} />
+                <img src={psychologist.PhotoURL} alt={`${psychologist.Name} ${psychologist.LastName}`}
+                     style={{ maxWidth: '200px', height: 'auto' }} />
             )}
             <p>{psychologist.Description}</p>
             <p><strong>Kvalifikácia:</strong> {psychologist.Qualification}</p>
@@ -61,9 +84,8 @@ const PsychologistProfilePage: React.FC = () => {
             <p><strong>Cena:</strong> {psychologist.PriceRange}</p>
             <p><strong>Online terapia:</strong> {psychologist.OnlineTherapyOption ? 'Áno' : 'Nie'}</p>
             <h3>Kontakt</h3>
-            <p><strong>Telefón:</strong> {psychologist.Contact.phone}</p>
-            <p><strong>Email:</strong> {psychologist.Contact.email}</p>
-            {/* Môžete pridať ďalšie detaily, ktoré chcete zobraziť na profile */}
+            {/*<p><strong>Telefón:</strong> {psychologist.Contact.phone}</p>*/}
+            {/*<p><strong>Email:</strong> {psychologist.Contact.email}</p>*/}
         </div>
     );
 };

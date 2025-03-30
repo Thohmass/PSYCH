@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export interface Psychologist {
     PsychologistID: string;
@@ -10,13 +11,10 @@ export interface Psychologist {
     Languages: string;
     PriceRange: string;
     Address: string;
-    Contact: {
-        phone: string;
-        email: string;
-    };
+    ContactInfo: string;
     PhotoURL?: string;
     OnlineTherapyOption: boolean;
-    Specializations: string; // Zatiaľ predpokladáme, že mock dáta budú obsahovať názvy špecializácií
+    Specializations: string;
     TherapyTypes: string;
     Locations: string;
 }
@@ -33,13 +31,14 @@ const PsychologistCard: React.FC<PsychologistCardProps> = ({ psychologist }) => 
                      alt={`${psychologist.Name} ${psychologist.LastName}`}
                      style={{ maxWidth: '100px', height: 'auto' }} />
             )}
-            <h3>{psychologist.Name} {psychologist.LastName}</h3>
+            <h3>
+                <Link to={`/psycholog/${psychologist.PsychologistID}`}>
+                    {psychologist.Name} {psychologist.LastName}
+                </Link>
+            </h3>
             {psychologist.Specializations && psychologist.Specializations.length > 0 && (
                 <p>Špecializácia: {psychologist.Specializations[0]}</p>
             )}
-            {/* Môžete pridať ďalšie informácie, ktoré chcete zobraziť na karte, napríklad: */}
-            {/* <p>Skúsenosti: {psychologist.Experience}</p> */}
-            {/* <p>Cena: {psychologist.PriceRange}</p> */}
         </div>
     );
 };

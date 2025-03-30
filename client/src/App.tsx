@@ -17,10 +17,10 @@ function App() {
               <Link to="/search">Výsledky vyhľadávania</Link>
             </li>
             <li>
-              <Link to="/psycholog/1">Profil psychológa s ID 1</Link>
+              <Link to="/psycholog/0">Profil psychológa s ID 1</Link>
             </li>
             <li>
-              <Link to="/psycholog/2">Profil psychológa s ID 2</Link>
+              <Link to="/psycholog/UAofiQdg8jACldCksAwH">Profil psychológa s ID 2</Link>
             </li>
           </ul>
         </nav>

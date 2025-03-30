@@ -1,16 +1,22 @@
 import express, { Express, Request, Response } from 'express';
 import psychologistRoutes from './routes/psychologistRoutes';
+import cors from "cors";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
+const corsOptions = {
+    origin: 'http://localhost:3001',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+};
 
-// Middleware pre spracovanie JSON dát v tele požiadavky
 app.use(express.json());
 
-// Pripojenie trás pre psychológov pod prefixom /api
+app.use(cors(corsOptions));
+
 app.use('/api', psychologistRoutes);
 
-// Základná úvodná trasa pre overenie, či server beží
+
 app.get('/', (req: Request, res: Response) => {
     res.send('HladamPsychologa.sk API beží!');
 });

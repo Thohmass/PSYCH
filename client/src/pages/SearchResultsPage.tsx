@@ -23,7 +23,7 @@ const SearchResultsPage: React.FC = () => {
         };
 
         fetchPsychologists();
-    }, []); // Prázdne pole závislostí znamená, že efekt sa spustí iba raz po prvom renderovaní
+    }, []);
 
     if (loading) {
         return <div>Načítavam psychológov...</div>;
