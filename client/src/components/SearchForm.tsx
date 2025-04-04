@@ -7,12 +7,22 @@ const SearchForm: React.FC<SearchFormProps> = () => {
     const [keywords, setKeywords] = useState('');
     const [location, setLocation] = useState('');
     const [specialization, setSpecialization] = useState('');
-    const navigate = useNavigate(); // Inicializujte hook useNavigate
+    const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('Vyhľadávacie kritériá:', { keywords, location, specialization });
-        navigate('/search');
+        const queryParams = new URLSearchParams();
+        if (keywords) {
+            queryParams.append('keywords', keywords);
+        }
+        if (location) {
+            queryParams.append('location', location);
+        }
+        if (specialization) {
+            queryParams.append('specialization', specialization);
+        }
+
+        navigate(`/search?${queryParams.toString()}`);
     };
 
     return (
