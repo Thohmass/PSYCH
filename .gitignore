@@ -8,3 +8,4 @@
 /.idea/
 /tsconfig.json
 /client/tsconfig.json
+/client/.env.local

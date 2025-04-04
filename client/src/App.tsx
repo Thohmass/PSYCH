@@ -17,7 +17,7 @@ function App() {
               <Link to="/search">Výsledky vyhľadávania</Link>
             </li>
             <li>
-              <Link to="/psycholog/0">Profil psychológa s ID 1</Link>
+              <Link to="/psycholog/e3XMp7pHunRZeHlCTBOJ">Profil psychológa s ID 1</Link>
             </li>
             <li>
               <Link to="/psycholog/UAofiQdg8jACldCksAwH">Profil psychológa s ID 2</Link>
