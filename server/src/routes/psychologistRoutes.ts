@@ -1,15 +1,15 @@
 import express from 'express';
 import { createPsychologist, getAllPsychologists, getPsychologistById } from '../controllers/psychologistController';
 
-const router = express.Router();
+const psychologistRouter = express.Router();
 
 // Endpoint pre vytvorenie nového psychológa
-router.post('/psychologists', createPsychologist);
+psychologistRouter.post('/', createPsychologist);
 
 // Endpoint pre získanie zoznamu všetkých psychológov
-router.get('/psychologists', getAllPsychologists);
+psychologistRouter.get('/', getAllPsychologists);
 
 // Endpoint pre získanie konkrétneho psychológa podľa ID
-router.get('/psychologists/:id', getPsychologistById);
+psychologistRouter.get('/:id', getPsychologistById);
 
-export default router;
+export default psychologistRouter;

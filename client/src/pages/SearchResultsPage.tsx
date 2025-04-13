@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getPsychologists } from '../services/psychologistService';
 import PsychologistCard from '../components/PsychologistCard';
-import {Psychologist } from "../../../shared/PsychologistInterfaces";
+import { Psychologist } from "../../../shared/DatabaseInterfaces";
 import Map from "../components/Map";
 
 const SearchResultsPage: React.FC = () => {

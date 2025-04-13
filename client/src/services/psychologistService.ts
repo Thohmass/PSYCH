@@ -1,4 +1,4 @@
-import {Psychologist} from "../../../shared/PsychologistInterfaces";
+import {Psychologist} from "../../../shared/DatabaseInterfaces";
 
 export const getPsychologistById = async (id: string) => {
     try {

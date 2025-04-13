@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -13,10 +15,11 @@ if (!HTMLElement) {
 
 root.render(
     <React.StrictMode>
-        <App />
+        <AuthProvider> {/* Obalíme App s AuthProvider */}
+            <App />
+        </AuthProvider>
     </React.StrictMode>
 );
 
-// Ak chcete začať merať výkon vo vašej aplikácii, prejdite na https://bit.ly/CRA-vitals
-// a postupujte podľa pokynov.
+// https://bit.ly/CRA-vitals
 reportWebVitals();

@@ -1,5 +1,7 @@
 import admin from "firebase-admin";
 import * as serviceAccount from "./hladampsychologaFirebaseAdminSDK.json";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // Initialize Firebase Admin SDK
 admin.initializeApp({
