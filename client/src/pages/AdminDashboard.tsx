@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAuthGuard} from '../hooks/useAuthGuard';
-import {UserRole} from 'shared/roles';
+import {UserRole} from '@myproject/shared';
 
 const AdminDashboard: React.FC = () => {
     const isAdmin = useAuthGuard({ role: UserRole.Admin, redirectTo: '/login' });

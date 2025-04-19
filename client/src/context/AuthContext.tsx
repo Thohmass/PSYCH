@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
-import { RoleType } from '../../../shared/roles';
+import { RoleType } from '@myproject/shared';
 
 interface AuthContextType {
     isAuthenticated: boolean;

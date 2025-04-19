@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { RoleType } from '../../../shared/roles';
+import { RoleType } from '@myproject/shared';
 
 interface AuthGuardProps {
     role?: RoleType;

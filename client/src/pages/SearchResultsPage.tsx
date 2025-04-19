@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getPsychologists } from '../services/psychologistService';
 import PsychologistCard from '../components/PsychologistCard';
-import { Psychologist } from "../../../shared/DatabaseInterfaces";
+import { Psychologist } from "@myproject/shared";
 import Map from "../components/Map";
 
 const SearchResultsPage: React.FC = () => {
@@ -39,8 +39,9 @@ const SearchResultsPage: React.FC = () => {
             const filtered = psychologistsList.filter(psychologist => {
                 const matchesKeywords = !keywordsFilter || `${psychologist.Name} ${psychologist.LastName} ${psychologist.Description}`.toLowerCase().includes(keywordsFilter.toLowerCase());
                 const matchesLocation = !locationFilter || psychologist.Locations.some(loc => loc.toLowerCase().includes(locationFilter.toLowerCase()));
-                const matchesSpecialization = !specializationFilter || psychologist.Specializations.some(spec => spec.toLowerCase().includes(specializationFilter.toLowerCase()));
-                return matchesKeywords && matchesLocation && matchesSpecialization;
+                const matchesSpecialization = !specializationFilter || psychologist.Specializations.some(spec => {
+                    return typeof spec === 'string' && spec.toLowerCase().includes(specializationFilter.toLowerCase());
+                });                return matchesKeywords && matchesLocation && matchesSpecialization;
             });
             setFilteredPsychologists(filtered);
         }

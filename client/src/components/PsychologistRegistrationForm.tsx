@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {Psychologist} from "../../../shared/DatabaseInterfaces";
-import {Specialization, TherapyType} from "../../../shared/roles";
+import {Psychologist} from "@myproject/shared";
+import {Specialization, TherapyType} from "@myproject/shared";
 
 const fieldConfig: {
     [K in keyof Psychologist]?: {

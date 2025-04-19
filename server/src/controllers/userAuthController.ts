@@ -1,7 +1,7 @@
 // server/src/controllers/userAuthController.ts
 import {Request, Response} from 'express';
 import { db } from '../config/firebaseConfig';
-import { UserRole } from '../../../shared/roles';
+import { UserRole } from '@myproject/shared';
 import {comparePasswords, hashPassword} from '../utils/passwordUtils';
 
 const userCollection = db.collection('users');

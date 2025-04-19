@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { UserRole } from 'shared/roles';
+import { UserRole } from '@myproject/shared';
 
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState('');

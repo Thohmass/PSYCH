@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Psychologist } from "../../../shared/DatabaseInterfaces";
+import { Psychologist } from "@myproject/shared";
 
 export interface PsychologistCardProps {
     psychologist: Psychologist;

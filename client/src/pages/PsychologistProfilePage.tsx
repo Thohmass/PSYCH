@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPsychologistById } from '../services/psychologistService';
-import { Psychologist } from "../../../shared/DatabaseInterfaces";
+import { Psychologist } from "@myproject/shared";
 
 const PsychologistProfilePage: React.FC = () => {
     const { id } = useParams<{ id?: string }>();
