@@ -1,0 +1,32 @@
+{
+  "name": "@myproject/shared",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tomáš Roch",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thohmass/PSYCH.git"
+  },
+  "private": true,
+  "dependencies": {
+    "@myproject/shared": "file:../shared"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

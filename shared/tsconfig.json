@@ -4,8 +4,14 @@
     "module": "ESNext",
     "target": "ES6",
     "outDir": "dist",
+    "rootDir": "./src",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["./"]
+  "include": ["./src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
