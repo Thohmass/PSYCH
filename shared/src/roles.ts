@@ -4,6 +4,7 @@ export enum UserRole {
     Psychologist = 'psychologist',
     Admin = 'admin',
 }
+export type RoleType = UserRole;
 
 export enum Specialization {
     Anxiety = 'Anxiety',
@@ -22,4 +23,33 @@ export enum TherapyType {
     // Pridajú sa ďalšie typy terapií podľa potreby
 }
 
-export type RoleType = UserRole;
+export interface User {
+    email: string;
+    hashedPassword: string;
+    registrationDate: string;
+    role: string;
+    // userID: string
+}
+
+export interface Psychologist {
+    userID: string;
+    name: string;
+    lastName: string;
+    description: string;
+    qualification: string;
+    experience: string;
+    languages: string[];
+    priceRange: string;
+    address: string;
+    contactInfo: string;
+    photoURL?: string;
+    onlineTherapyOption: boolean;
+    specializations: string[];
+    therapyTypes: string[];
+    locations: string[];
+    id?: string;
+}
+
+export interface PsychologistCardProps {
+    psychologist: Psychologist;
+}

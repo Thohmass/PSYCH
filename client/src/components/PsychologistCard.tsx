@@ -9,18 +9,18 @@ export interface PsychologistCardProps {
 const PsychologistCard: React.FC<PsychologistCardProps> = ({ psychologist }) => {
     return (
         <div className="psychologist-card">
-            {psychologist.PhotoURL && (
-                <img src={psychologist.PhotoURL}
-                     alt={`${psychologist.Name} ${psychologist.LastName}`}
+            {psychologist.photoURL && (
+                <img src={psychologist.photoURL}
+                     alt={`${psychologist.name} ${psychologist.lastName}`}
                      style={{ maxWidth: '100px', height: 'auto' }} />
             )}
             <h3>
-                <Link to={`/psycholog/${psychologist.id}`}>
-                    {psychologist.Name} {psychologist.LastName}
+                <Link to={`/psychologists/${psychologist.id}`}>
+                    {psychologist.name} {psychologist.lastName}
                 </Link>
             </h3>
-            {psychologist.Specializations && psychologist.Specializations.length > 0 && (
-                <p>Špecializácia: {psychologist.Specializations[0]}</p>
+            {psychologist.specializations && psychologist.specializations.length > 0 && (
+                <p>Špecializácia: {psychologist.specializations.join(", ")}</p>
             )}
         </div>
     );

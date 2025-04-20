@@ -46,25 +46,25 @@ const PsychologistProfilePage: React.FC = () => {
 
     return (
         <div className="psychologist-profile-page">
-            <h2>{psychologist.Name} {psychologist.LastName}</h2>
-            {psychologist.PhotoURL && (
-                <img src={psychologist.PhotoURL} alt={`${psychologist.Name} ${psychologist.LastName}`}
+            <h2>{psychologist.name} {psychologist.lastName}</h2>
+            {psychologist.photoURL && (
+                <img src={psychologist.photoURL} alt={`${psychologist.name} ${psychologist.lastName}`}
                      style={{ maxWidth: '200px', height: 'auto' }} />
             )}
-            <p>{psychologist.Description}</p>
-            <p><strong>Kvalifikácia:</strong> {psychologist.Qualification}</p>
-            <p><strong>Skúsenosti:</strong> {psychologist.Experience}</p>
-            {psychologist.Specializations && psychologist.Specializations.length > 0 && (
-                <p><strong>Špecializácie:</strong> {psychologist.Specializations.join(', ')}</p>
+            <p>{psychologist.description}</p>
+            <p><strong>Kvalifikácia:</strong> {psychologist.qualification}</p>
+            <p><strong>Skúsenosti:</strong> {psychologist.experience}</p>
+            {psychologist.specializations && psychologist.specializations.length > 0 && (
+                <p><strong>Špecializácie:</strong> {psychologist.specializations.join(', ')}</p>
             )}
-            {psychologist.TherapyTypes && psychologist.TherapyTypes.length > 0 && (
-                <p><strong>Typy terapií:</strong> {psychologist.TherapyTypes.join(', ')}</p>
+            {psychologist.therapyTypes && psychologist.therapyTypes.length > 0 && (
+                <p><strong>Typy terapií:</strong> {psychologist.therapyTypes.join(', ')}</p>
             )}
-            {psychologist.Locations && psychologist.Locations.length > 0 && (
-                <p><strong>Lokalita:</strong> {psychologist.Locations.join(', ')}</p>
+            {psychologist.locations && psychologist.locations.length > 0 && (
+                <p><strong>Lokalita:</strong> {psychologist.locations.join(', ')}</p>
             )}
-            <p><strong>Cena:</strong> {psychologist.PriceRange}</p>
-            <p><strong>Online terapia:</strong> {psychologist.OnlineTherapyOption ? 'Áno' : 'Nie'}</p>
+            <p><strong>Cena:</strong> {psychologist.priceRange}</p>
+            <p><strong>Online terapia:</strong> {psychologist.onlineTherapyOption ? 'Áno' : 'Nie'}</p>
             <h3>Kontakt</h3>
             {/*<p><strong>Telefón:</strong> {psychologist.Contact.phone}</p>*/}
             {/*<p><strong>Email:</strong> {psychologist.Contact.email}</p>*/}

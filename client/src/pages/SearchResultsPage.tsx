@@ -37,9 +37,9 @@ const SearchResultsPage: React.FC = () => {
     useEffect(() => {
         if (!loading && psychologistsList.length > 0) {
             const filtered = psychologistsList.filter(psychologist => {
-                const matchesKeywords = !keywordsFilter || `${psychologist.Name} ${psychologist.LastName} ${psychologist.Description}`.toLowerCase().includes(keywordsFilter.toLowerCase());
-                const matchesLocation = !locationFilter || psychologist.Locations.some(loc => loc.toLowerCase().includes(locationFilter.toLowerCase()));
-                const matchesSpecialization = !specializationFilter || psychologist.Specializations.some(spec => {
+                const matchesKeywords = !keywordsFilter || `${psychologist.name} ${psychologist.lastName} ${psychologist.description}`.toLowerCase().includes(keywordsFilter.toLowerCase());
+                const matchesLocation = !locationFilter || psychologist.locations.some(loc => loc.toLowerCase().includes(locationFilter.toLowerCase()));
+                const matchesSpecialization = !specializationFilter || psychologist.specializations.some(spec => {
                     return typeof spec === 'string' && spec.toLowerCase().includes(specializationFilter.toLowerCase());
                 });                return matchesKeywords && matchesLocation && matchesSpecialization;
             });

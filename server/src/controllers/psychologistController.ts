@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { db } from '../config/firebaseConfig';
-import { Psychologist } from "@myproject/shared";
+import { Psychologist } from "../../../shared/src/roles";
 
 // Referencia na kolekciu 'psychologists' v Firestore
 const psychologistsCollection = db.collection('psychologists');

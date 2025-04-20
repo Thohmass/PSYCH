@@ -34,7 +34,7 @@ const Map: React.FC<MapProps> = ({ psychologists }) => {
             zoom={13}
         >
             {psychologists.map((psychologist) => (
-                psychologist.Locations && psychologist.Locations.map((location, index) => {
+                psychologist.locations && psychologist.locations.map((location, index) => {
                     // Predpokladáme, že tvoja vlastnosť Locations obsahuje pole adries.
                     // V reálnom svete by si tu pravdepodobne potreboval geokódovanie
                     // na premenu adresy na zemepisné súradnice (latitude a longitude).
@@ -61,7 +61,7 @@ const Map: React.FC<MapProps> = ({ psychologists }) => {
                         <Marker
                             key={`${psychologist.id}-${index}`}
                             position={{ lat: center.lat + index * 0.01, lng: center.lng + index * 0.01 }}
-                            title={`${psychologist.Name} ${psychologist.LastName} - ${location}`}
+                            title={`${psychologist.name} ${psychologist.lastName} - ${location}`}
                         />
                     );
                     // }

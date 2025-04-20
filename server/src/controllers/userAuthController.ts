@@ -1,7 +1,7 @@
 // server/src/controllers/userAuthController.ts
 import {Request, Response} from 'express';
 import { db } from '../config/firebaseConfig';
-import { UserRole } from '@myproject/shared';
+import { UserRole, User } from '../../../shared/src/roles';
 import {comparePasswords, hashPassword} from '../utils/passwordUtils';
 
 const userCollection = db.collection('users');
@@ -70,32 +70,33 @@ export const createClient = async (req: Request, res: Response) => {
 
 export const createPsychologist = async (req: Request, res: Response) => {
     try {
+        console.log(req.body);
         const {
-            Email,
-            Password,
-            Name,
-            LastName,
-            Description,
-            Qualification,
-            Experience,
-            Languages,
-            PriceRange,
-            Address,
-            ContactInfo,
-            PhotoURL,
-            OnlineTherapyOption,
-            Specializations,
-            TherapyTypes,
-            Locations,
+            email,
+            password,
+            name,
+            lastName,
+            description,
+            qualification,
+            experience,
+            languages,
+            priceRange,
+            address,
+            contactInfo,
+            photoURL,
+            onlineTherapyOption,
+            specializations,
+            therapyTypes,
+            locations,
         } = req.body;
 
-        if (!Email || !Password || !Name || !LastName) {
+        if (!email || !password || !name || !lastName) {
             res.status(400).json({ message: 'Email, heslo, meno a priezvisko sú povinné.' });
             return;
         }
 
         const snapshot = await userCollection
-            .where('Email', '==', Email)
+            .where('Email', '==', email)
             .limit(1)
             .get();
         if (!snapshot.empty) {
@@ -103,31 +104,31 @@ export const createPsychologist = async (req: Request, res: Response) => {
             return;
         }
 
-        const hashedPassword = await hashPassword(Password);
+        const hashedPassword = await hashPassword(password);
 
         await userCollection.add({
-            Email,
+            email,
             hashedPassword,
-            Role: UserRole.Psychologist,
-            TimeStamp: Date.now(),
+            role: UserRole.Psychologist,
+            timeStamp: Date.now(),
         })
 
         await psychologistCollection.add({
-            Role: UserRole.Psychologist,
-            Name,
-            LastName,
-            Description,
+            role: UserRole.Psychologist,
+            name,
+            lastName,
+            description,
             // Qualification,
-            Experience,
-            Languages: Languages || [],
-            PriceRange,
-            Address,
-            ContactInfo,
-            PhotoURL: PhotoURL || null,
-            OnlineTherapyOption: OnlineTherapyOption || false,
-            Specializations: Specializations || [],
-            TherapyTypes: TherapyTypes || [],
-            Locations: Locations || [],
+            experience,
+            languages: languages || [],
+            priceRange,
+            address,
+            contactInfo,
+            photoURL: photoURL || null,
+            onlineTherapyOption: onlineTherapyOption || false,
+            specializations: specializations || [],
+            therapyTypes: therapyTypes || [],
+            locations: locations || [],
         });
 
         res.status(201).json({ message: 'Účet psychológa úspešne vytvorený.' });
@@ -158,8 +159,8 @@ export const loginUser = async (req: Request, res: Response) => {
             return;
         }
 
-        const data = doc.data();
-        const isPasswordValid = await comparePasswords(password, data.password);
+        const data = doc.data() as User;
+        const isPasswordValid = await comparePasswords(password, data.hashedPassword);
 
         if (isPasswordValid) {
             res.status(200).json({ message: 'Úspešne prihlásený.', role: data.role as UserRole});

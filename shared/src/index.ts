@@ -1,3 +1,2 @@
-export * from './DatabaseInterfaces';
 export * from './roles';
-// export * from './UserInterfaces';
+export * from './forum';

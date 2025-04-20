@@ -11,39 +11,39 @@ const fieldConfig: {
         options?: string[];
     };
 } = {
-    Name: { label: 'Meno', type: 'text', required: true },
-    LastName: { label: 'Priezvisko', type: 'text', required: true },
-    Description: { label: 'Popis', type: 'textarea' },
-    Qualification: { label: 'Kvalifikácia', type: 'text' },
-    Experience: { label: 'Skúsenosti', type: 'textarea' },
-    Languages: { label: 'Jazyky (oddelené čiarkou)', type: 'text' },
-    PriceRange: { label: 'Cenové rozpätie', type: 'text' },
-    Address: { label: 'Adresa', type: 'text' },
-    ContactInfo: { label: 'Kontaktné informácie', type: 'text' },
-    PhotoURL: { label: 'URL fotografie (voliteľné)', type: 'text' },
-    OnlineTherapyOption: { label: 'Možnosť online terapie', type: 'checkbox' },
-    Specializations: {
+    name: { label: 'Meno', type: 'text', required: true },
+    lastName: { label: 'Priezvisko', type: 'text', required: true },
+    description: { label: 'Popis', type: 'textarea' },
+    qualification: { label: 'Kvalifikácia', type: 'text' },
+    experience: { label: 'Skúsenosti', type: 'textarea' },
+    languages: { label: 'Jazyky (oddelené čiarkou)', type: 'text' },
+    priceRange: { label: 'Cenové rozpätie', type: 'text' },
+    address: { label: 'Adresa', type: 'text' },
+    contactInfo: { label: 'Kontaktné informácie', type: 'text' },
+    photoURL: { label: 'URL fotografie (voliteľné)', type: 'text' },
+    onlineTherapyOption: { label: 'Možnosť online terapie', type: 'checkbox' },
+    specializations: {
         label: 'Špecializácie',
         type: 'multiselect',
         options: Object.values(Specialization),
     },
-    TherapyTypes: {
+    therapyTypes: {
         label: 'Typy terapie',
         type: 'multiselect',
         options: Object.values(TherapyType),
     },
-    Locations: { label: 'Lokality (oddelené čiarkou)', type: 'text' },
+    locations: { label: 'Lokality (oddelené čiarkou)', type: 'text' },
 };
 
 const PsychologistRegistrationForm: React.FC = () => {
     const [formData, setFormData] = useState<Partial<Psychologist>>({
-        OnlineTherapyOption: false,
-        Specializations: [],
-        TherapyTypes: [],
-        Languages: [],
-        Locations: [],
+        onlineTherapyOption: false,
+        specializations: [],
+        therapyTypes: [],
+        languages: [],
+        locations: [],
     });
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -64,7 +64,7 @@ const PsychologistRegistrationForm: React.FC = () => {
         }
 
         const payload = {
-            username,
+            email,
             password,
             ...formData,
             // Languages: typeof formData.Languages === 'string'
@@ -105,12 +105,12 @@ const PsychologistRegistrationForm: React.FC = () => {
             {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="username">Používateľské meno:</label>
+                    <label htmlFor="email">Emailov adresa:</label>
                     <input
                         type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>

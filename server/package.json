@@ -20,12 +20,12 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@myproject/shared": "file:../shared",
     "@types/firebase": "^2.4.32",
     "bcrypt": "^5.1.1",
     "express": "^4.21.2",
     "firebase": "^11.6.0",
     "firebase-admin": "^13.2.0",
-    "ts-node": "^10.9.2",
-    "@myproject/shared": "file:../shared"
+    "ts-node": "^10.9.2"
   }
 }
