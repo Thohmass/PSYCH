@@ -7,6 +7,9 @@ import SearchResultsPage from './pages/SearchResultsPage';
 import LoginForm from "./components/LoginForm";
 import AdminDashboard from "./pages/AdminDashboard";
 import { useAuth } from './context/AuthContext';
+import PsychologistRegistrationForm from "./components/PsychologistRegistrationForm";
+import ForumPostList from "./pages/ForumPostList";
+import ForumPostDetail from "./pages/ForumPostDetail";
 
 function App() {
     const { isAuthenticated, logout, userRole } = useAuth();
@@ -22,28 +25,32 @@ function App() {
                         <Link to="/search">Výsledky vyhľadávania</Link>
                     </li>
                     <li>
-                        <Link to="/psychologists/e3XMp7pHunRZeHlCTBOJ">Profil psychológa s ID 1</Link>
+                        <Link to="/forum">Fórum</Link>
                     </li>
-                    <li>
-                        <Link to="/psychologists/UAofiQdg8jACldCksAwH">Profil psychológa s ID 2</Link>
-                    </li>
-                    {userRole === 'admin' ? (
-                        <li>
-                            <Link to="/admin">Admin Dashboard</Link>
-                        </li>
-                    ) : (
-                        <li>
-                            <Link to="/profile">Profile Page</Link>
-                        </li>
-                    )}
                     {isAuthenticated ? (
-                        <li>
-                        <button onClick={logout}>Odhlásiť sa</button>
-                        </li>
+                        <>
+                            {userRole === 'admin' ? (
+                                <li>
+                                    <Link to="/admin">Admin Dashboard</Link>
+                                </li>
+                            ) : (
+                                <li>
+                                    <Link to="/profile">Profile Page</Link>
+                                </li>
+                            )}
+                            <li>
+                                <button onClick={logout}>Odhlásiť sa</button>
+                            </li>
+                        </>
                     ) : (
-                        <li>
-                            <Link to="/login">Prihlásiť sa</Link>
-                        </li>
+                        <>
+                            <li>
+                                <Link to="/login">Prihlásiť sa</Link>
+                            </li>
+                            <li>
+                                <Link to="/register">Registrovať sa</Link>
+                            </li>
+                        </>
                     )}
                 </ul>
             </nav>
@@ -51,10 +58,13 @@ function App() {
             <Routes>
                 <Route path="/" element={<SearchForm/>}/>
                 <Route path="/search" element={<SearchResultsPage/>}/>
+                <Route path="/forum" element={<ForumPostList/>}/>
+                <Route path="/forum/:id" element={<ForumPostDetail/>}/>
                 <Route path="/psychologists/:id" element={<PsychologistProfilePage/>}/>
-                <Route path="/login" element={<LoginForm/>} />
-                <Route path="/admin" element={<AdminDashboard/>} />
-                <Route path="/unauthorized" element={<div>Nemáte povolenie na prístup na túto stránku.</div>} />
+                <Route path="/login" element={<LoginForm/>}/>
+                <Route path="/register" element={<PsychologistRegistrationForm/>}/>
+                <Route path="/admin" element={<AdminDashboard/>}/>
+                <Route path="/unauthorized" element={<div>Nemáte povolenie na prístup na túto stránku.</div>}/>
             </Routes>
         </BrowserRouter>
     );
