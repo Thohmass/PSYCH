@@ -3,7 +3,7 @@
 - Názov projektu: hladampsychologa.sk
 - Link na repozitár: https://github.com/Thohmass/PSYCH
 - Tag: week8
-- Obdobie: 7. týždeň, 7.4. - 13.4.2025
+- Obdobie: 8. týždeň, 7.4. - 13.4.2025
 
 # Plán:
 1. Pokračovať v implementácii mapy s lokalitami psychológov, tentokrát však použiť `AdvancedMarkerElement`.
