@@ -1,11 +1,18 @@
 
 /.idea/
 
-/server/src/config/hladampsychologaFirebaseAdminSDK.json
-/server/node_modules/
+/server_old/src/config/hladampsychologaFirebaseAdminSDK.json
+/server_old/node_modules/
 
 /client/node_modules/
 /client/.env.local
 
 /shared/node_modules
 /shared/dist/
+/client/build/
+/.github/
+/.firebase/
+
+/functions/src/config/hladampsychologaFirebaseAdminSDK.json
+/functions/lib/config/hladampsychologaFirebaseAdminSDK.json
+/functions/lib/functions/src/config/hladampsychologaFirebaseAdminSDK.json

@@ -10,6 +10,7 @@ import { useAuth } from './context/AuthContext';
 import PsychologistRegistrationForm from "./components/PsychologistRegistrationForm";
 import ForumPostList from "./pages/ForumPostList";
 import ForumPostDetail from "./pages/ForumPostDetail";
+import FeedbackForm from "./components/FeedbackForm";
 
 function App() {
     const { isAuthenticated, logout, userRole } = useAuth();
@@ -26,6 +27,9 @@ function App() {
                     </li>
                     <li>
                         <Link to="/forum">Fórum</Link>
+                    </li>
+                    <li>
+                        <Link to="/feedback">Feedback :)</Link>
                     </li>
                     {isAuthenticated ? (
                         <>
@@ -59,7 +63,8 @@ function App() {
                 <Route path="/" element={<SearchForm/>}/>
                 <Route path="/search" element={<SearchResultsPage/>}/>
                 <Route path="/forum" element={<ForumPostList/>}/>
-                <Route path="/forum/:id" element={<ForumPostDetail/>}/>
+                <Route path="/forum/:postId" element={<ForumPostDetail/>}/>
+                <Route path="/feedback" element={<FeedbackForm/>}/>
                 <Route path="/psychologists/:id" element={<PsychologistProfilePage/>}/>
                 <Route path="/login" element={<LoginForm/>}/>
                 <Route path="/register" element={<PsychologistRegistrationForm/>}/>
