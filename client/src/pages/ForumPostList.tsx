@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
-// import { ForumPostTopic } from "@myproject/shared";
-// import { Psychologist } from "@myproject/shared";
 import { Link } from 'react-router-dom';
 import { getForumPosts } from '../services/forumService';
 import { ForumPost } from '@myproject/shared'; // Import interface
+import NewForumRootPostForm from "../components/NewForumRootPostForm";
 
 const ForumPostList: React.FC = () => {
     const [posts, setPosts] = useState<ForumPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            setLoading(true);
-            setError(null);
-            try {
-                const data = await getForumPosts();
-                setPosts(data);
-            } catch (err: any) {
-                setError('Nepodarilo sa načítať príspevky fóra.');
-                console.error('Chyba pri načítavaní príspevkov fóra:', err);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const updatePosts = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const data = await getForumPosts();
+            setPosts(data);
+        } catch (err: any) {
+            setError('Nepodarilo sa načítať príspevky fóra.');
+            console.error('Chyba pri načítavaní príspevkov fóra:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        fetchPosts();
+    useEffect(() => {
+        updatePosts();
     }, []);
 
     if (loading) {
@@ -55,6 +53,8 @@ const ForumPostList: React.FC = () => {
             ) : (
                 <div>Žiadne príspevky vo fóre zatiaľ nie sú.</div>
             )}
+            <hr/>
+            <NewForumRootPostForm onPostCreated={updatePosts} />
         </div>
     );
 };

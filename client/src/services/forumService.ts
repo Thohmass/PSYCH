@@ -1,5 +1,6 @@
 // client/src/services/forumService.ts
-import { ForumPost } from '@myproject/shared'; // Vytvoríme tento interface neskôr
+import { ForumPost } from '@myproject/shared';
+import { useAuth } from "../context/AuthContext"; // Vytvoríme tento interface neskôr
 
 // const API_URL = ''; // Používame relatívne cesty vďaka proxy
 
@@ -34,4 +35,32 @@ export const getForumPostDetail = async (postId: string): Promise<ForumPost | nu
     }
 };
 
-// Neskoršie pridáme funkcie pre create, update, delete
+export const createForumPost = async (rootPostId: string, parentPostId: string,
+                                      userId: string | undefined, title: string, content: string): Promise<ForumPost> => {
+    try {
+
+        // if (userId === null) {
+        //     userId = '';
+        // }
+        // TODO: Pri odosielaní príspevku bude potrebné pridať autorizačnú hlavičku
+        const response = await fetch('/api/forum/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': userId
+            },
+            body: JSON.stringify({ rootPostId, parentPostId, authorUserId: userId == null ? '' : userId, title, content }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Nepodarilo sa vytvoriť príspevok fóra.');
+        }
+
+        const data = await response.json();
+        return data as ForumPost; // Backend by mal vrátiť vytvorený príspevok s ID a dátumom
+    } catch (error) {
+        console.error('Chyba pri vytváraní príspevku fóra:', error);
+        throw error;
+    }
+};

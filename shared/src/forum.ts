@@ -7,6 +7,10 @@ export enum ForumPostTopic {
     // There will be more and better
 }
 
+export interface NewForumPostFormProps {
+    onPostCreated: () => void;
+}
+
 export interface ForumPost {
     authorUserId: string,
     id?: string

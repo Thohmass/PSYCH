@@ -2,36 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getForumPostDetail } from '../services/forumService';
 import { ForumPost } from '@myproject/shared'; // Import interface
+import NewForumReplyPostForm from "../components/NewForumReplyPostForm";
 
 const ForumPostDetail: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
+    const { postId } = useParams<{ postId: string }>();
     const [post, setPost] = useState<ForumPost | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    const fetchPostDetail = async () => {
+        if (!postId) {
+            setError('Chýba ID príspevku fóra.');
+            setLoading(false);
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+        try {
+            const data = await getForumPostDetail(postId);
+            setPost(data);
+        } catch (err: any) {
+            setError('Nepodarilo sa načítať detail príspevku fóra.');
+            console.error('Chyba pri načítavaní detailu príspevku fóra:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchPostDetail = async () => {
-            if (!id) {
-                setError('Chýba ID príspevku fóra.');
-                setLoading(false);
-                return;
-            }
-
-            setLoading(true);
-            setError(null);
-            try {
-                const data = await getForumPostDetail(id);
-                setPost(data);
-            } catch (err: any) {
-                setError('Nepodarilo sa načítať detail príspevku fóra.');
-                console.error('Chyba pri načítavaní detailu príspevku fóra:', err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
         fetchPostDetail();
-    }, [id]);
+    }, [postId]);
 
     if (loading) {
         return <div>Načítavam detail príspevku fóra...</div>;
@@ -66,8 +67,9 @@ const ForumPostDetail: React.FC = () => {
                     </ul>
                 </div>
             )}
-
+            <hr/>
             {/* Tu by mohol byť formulár na pridanie novej odpovede (len pre prihlásených) */}
+            <NewForumReplyPostForm onPostCreated={fetchPostDetail} />
         </div>
     );
 };
