@@ -1,4 +1,4 @@
-// server/src/routes/authRoutes.ts
+// server_old/src/routes/authRoutes.ts
 import express from 'express';
 import {createAdmin, createClient, createPsychologist, loginUser} from '../controllers/userAuthController';
 

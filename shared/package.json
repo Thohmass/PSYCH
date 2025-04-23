@@ -1,6 +1,7 @@
 {
   "name": "@myproject/shared",
   "version": "1.0.0",
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,9 +17,6 @@
     "url": "https://github.com/Thohmass/PSYCH.git"
   },
   "private": true,
-  "dependencies": {
-    "@myproject/shared": "file:../shared"
-  },
   "exports": {
     ".": {
       "import": "./dist/index.js",

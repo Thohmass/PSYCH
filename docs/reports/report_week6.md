@@ -35,7 +35,7 @@ Všetko sa stihlo.
 4. Začatie práce na implementácii mapy s lokalitami psychológov.
 
 # Problémy:
-Počas prepojenia frontendu s backendom sa vyskytol problém s CORS (Cross-Origin Resource Sharing), keď frontend bežiaci na porte 3001 nemohol komunikovať s backendom bežiacim na porte 3000. Tento problém bol vyriešený pridaním a konfiguráciou `cors` middleware v backendovej aplikácii (`server/src/app.ts`).
+Počas prepojenia frontendu s backendom sa vyskytol problém s CORS (Cross-Origin Resource Sharing), keď frontend bežiaci na porte 3001 nemohol komunikovať s backendom bežiacim na porte 3000. Tento problém bol vyriešený pridaním a konfiguráciou `cors` middleware v backendovej aplikácii (`server/src/index.ts`).
 
 # Zmeny v špecifikácii:
 Žiadne.

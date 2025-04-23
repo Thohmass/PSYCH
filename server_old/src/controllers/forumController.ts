@@ -6,6 +6,7 @@ const forumPostsCollection = db.collection('forum');
 
 export const createPost = async (req: Request, res: Response) => {
     try {
+        const authorUserId = req.headers.authorization;
         const postParams = req.body as ForumPost;
 
         if (postParams.parentPostId != null && postParams.parentPostId != '') {

@@ -1,4 +1,4 @@
-// server/src/controllers/userAuthController.ts
+// server_old/src/controllers/userAuthController.ts
 import {Request, Response} from 'express';
 import { db } from '../config/firebaseConfig';
 import { UserRole, User } from '../../../shared/src/roles';
@@ -26,10 +26,12 @@ export const createAdmin = async (req: Request, res: Response):Promise<void> => 
         }
 
         userParams.password = await hashPassword(userParams.password);
+        userParams.role = UserRole.Admin;
+        userParams.registrationDate = Date.now();
 
         const docRef = await userCollection.add(userParams);
         res.status(201).send(`Administrátorský účet bol úspešne vytvorený s ID: ${docRef.id}`);
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Chyba pri registrácii administrátora:', error);
         res.status(500).send('Nepodarilo sa zaregistrovať administrátora.');
     }
@@ -58,13 +60,14 @@ export const createClient = async (req: Request, res: Response) => {
         await userCollection.add({
             password: hashedPassword,
             role: UserRole.Client,
-            // Prípadné uloženie ďalších informácií o psychológovi
+            registrationDate: Date.now(),
+            email: userParams.email
         });
 
-        res.status(201).json({ message: 'Účet psychológa úspešne vytvorený.' });
-    } catch (error: any) {
-        console.error('Chyba pri registrácii psychológa:', error);
-        res.status(500).json({ message: 'Nepodarilo sa vytvoriť účet psychológa.' });
+        res.status(201).json({ message: 'Účet klienta úspešne vytvorený.' });
+    } catch (error: unknown) {
+        console.error('Chyba pri registrácii klienta:', error);
+        res.status(500).json({ message: 'Nepodarilo sa vytvoriť účet klienta.' });
     }
 };
 
@@ -96,7 +99,7 @@ export const createPsychologist = async (req: Request, res: Response) => {
         }
 
         const snapshot = await userCollection
-            .where('Email', '==', email)
+            .where('email', '==', email)
             .limit(1)
             .get();
         if (!snapshot.empty) {
@@ -132,7 +135,7 @@ export const createPsychologist = async (req: Request, res: Response) => {
         });
 
         res.status(201).json({ message: 'Účet psychológa úspešne vytvorený.' });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Chyba pri registrácii psychológa:', error);
         res.status(500).json({ message: 'Nepodarilo sa vytvoriť účet psychológa.' });
     }
@@ -163,13 +166,13 @@ export const loginUser = async (req: Request, res: Response) => {
         const isPasswordValid = await comparePasswords(password, data.hashedPassword);
 
         if (isPasswordValid) {
-            res.status(200).json({ message: 'Úspešne prihlásený.', role: data.role as UserRole});
+            res.status(200).json({ message: 'Úspešne prihlásený.', role: data.role as UserRole, userId: doc.id});
             return;
         } else {
             res.status(401).json({ message: 'Nesprávna mailová adresa alebo heslo.' });
             return;
         }
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error('Chyba pri prihlasovaní:', error);
         res.status(500).json({ message: 'Nepodarilo sa prihlásiť.' });
     }

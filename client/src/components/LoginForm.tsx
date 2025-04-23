@@ -27,7 +27,7 @@ const LoginForm: React.FC = () => {
 
             if (response.ok) {
                 console.log('Úspešne prihlásený ako:', data.role);
-                login(data.role);
+                login(data.role, data.userId);
                 if (data.role === UserRole.Admin) {
                     navigate('/admin');
                 } else if (data.role === UserRole.Psychologist) {

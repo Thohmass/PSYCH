@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "rootDir": "src",
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["../shared/src/*"] // Alebo "paths": { "@myproject/shared/*": ["../shared/src/*"] }
+    }
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ]
+}

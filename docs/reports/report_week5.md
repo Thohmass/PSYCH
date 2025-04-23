@@ -13,7 +13,7 @@
 4. Nastavenie základného routingu na frontendovej strane pre navigáciu medzi stránkami.
 
 # Vykonaná práca:
-0. Implementované základné API endpointy pre entitu Psychológ (vytvorenie a čítanie) v `psychologistController.ts` a definované trasy v `psychologistRoutes.ts`. Prepojené s `app.ts`.
+0. Implementované základné API endpointy pre entitu Psychológ (vytvorenie a čítanie) v `psychologistController.ts` a definované trasy v `psychologistRoutes.ts`. Prepojené s `index.ts`.
    - Commits: `c534bf90b773e56ee6531f20c7b77b4fc88eb37d`, `080c6d6abeee7ebeb80137a9a5d3c1e2348adcc2`
 1. Nastavené vývojové prostredie pre frontend (React projekt s TypeScriptom) a vytvorená základná štruktúra priečinkov (`components`, `pages`, `assets`, `hooks`, `utils`, `styles`).
    - Commit: `59b5c66d81cf73590f4c1ca24189773ec19a8652`
