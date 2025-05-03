@@ -27,7 +27,7 @@ export interface User {
     hashedPassword: string;
     registrationDate: string;
     role: string;
-    // userID: string
+    userId?: string
 }
 
 export interface Psychologist {

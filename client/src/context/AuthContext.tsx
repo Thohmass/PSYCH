@@ -1,11 +1,11 @@
 import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
-import { RoleType } from '@myproject/shared';
+import {RoleType, UserRole} from '@myproject/shared';
+import {logoutUser} from "../services/authService";
 
 interface AuthContextType {
     isAuthenticated: boolean;
     userRole: RoleType | null;
-    userId: string | undefined;
-    login: (role: RoleType, id: string) => void;
+    login: (role: RoleType) => void;
     logout: () => void;
 }
 
@@ -18,38 +18,31 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userRole, setUserRole] = useState<RoleType | null>(null);
-    const [userId, setUserId] = useState<string>();
+    // const [userToken, setUserToken] = useState<string>();
 
     useEffect(() => {
-        const storedRole = localStorage.getItem('userRole');
-        const storedId = localStorage.getItem('userId');
+        const storedRole = sessionStorage.getItem('userRole') as UserRole;
         if (storedRole) {
             setIsAuthenticated(true);
             setUserRole(storedRole as RoleType);
-            setUserId(storedId === null ? '' : storedId);
         }
     }, []);
 
-    const login = (role: RoleType, id: string) => {
-        console.log('login', role, id);
+    const login = (role: RoleType) => {
+        console.log('login', role);
         setIsAuthenticated(true);
         setUserRole(role);
-        setUserId(id);
-        localStorage.setItem('userRole', role);
-        localStorage.setItem('userId', id);
-        console.log(localStorage.getItem('userId'));
+        sessionStorage.setItem('userRole', role);
     };
 
     const logout = () => {
         setIsAuthenticated(false);
         setUserRole(null);
-        setUserId('');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('userId');
+        sessionStorage.removeItem('userRole');
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, userRole, userId, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, userRole, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

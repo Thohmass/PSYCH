@@ -2,41 +2,40 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { UserRole } from '@myproject/shared';
+import {loginUser} from "../services/authService";
 
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const { login } = useAuth();
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setError(null);
 
+        if (!email || !password) {
+            setError('Používateľské meno a heslo sú povinné.');
+            setLoading(false);
+            return;
+        }
+
         try {
-            const response = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
+            const loginData = await loginUser(email, password);
 
-            const data = await response.json();
+            console.log('Úspešne prihlásený ako:', loginData.role);
+            // console.log('Získaný token:', loginData.token);
 
-            if (response.ok) {
-                console.log('Úspešne prihlásený ako:', data.role);
-                login(data.role, data.userId);
-                if (data.role === UserRole.Admin) {
-                    navigate('/admin');
-                } else if (data.role === UserRole.Psychologist) {
-                    navigate('/search');
-                } else {
-                    navigate('/');
-                }
+            login(loginData.role as UserRole);
+
+            if (loginData.role === UserRole.Admin) {
+                navigate('/admin');
+            } else if (loginData.role === UserRole.Psychologist) {
+                navigate('/search');
             } else {
-                setError(data.message || 'Nepodarilo sa prihlásiť.');
+                navigate('/');
             }
         } catch (error: any) {
             setError('Chyba pri komunikácii so serverom.');

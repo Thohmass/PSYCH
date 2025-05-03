@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom"; // Import useAuth hook na kontrolu p
 import { NewForumPostFormProps } from "../../../shared/src/forum";
 
 const NewForumReplyPostForm: React.FC<NewForumPostFormProps> = ({ onPostCreated}) => {
-    const { isAuthenticated, userId } = useAuth();
+    const { isAuthenticated } = useAuth();
     const { postId } = useParams<{ postId: string }>();
     const [content, setContent] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -31,7 +31,7 @@ const NewForumReplyPostForm: React.FC<NewForumPostFormProps> = ({ onPostCreated}
                 return;
             }
             // Voláme funkciu z nášho servisného súboru na odoslanie dát na backend
-            const newPost = await createForumPost(postId, postId, userId, '', content);
+            await createForumPost(postId, postId, '', content);
             setSuccessMessage('Príspevok úspešne vytvorený!');
             setContent('');
             onPostCreated();

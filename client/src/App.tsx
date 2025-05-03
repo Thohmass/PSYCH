@@ -11,6 +11,7 @@ import PsychologistRegistrationForm from "./components/PsychologistRegistrationF
 import ForumPostList from "./pages/ForumPostList";
 import ForumPostDetail from "./pages/ForumPostDetail";
 import FeedbackForm from "./components/FeedbackForm";
+import {logoutUser} from "./services/authService";
 
 function App() {
     const { isAuthenticated, logout, userRole } = useAuth();
@@ -43,7 +44,10 @@ function App() {
                                 </li>
                             )}
                             <li>
-                                <button onClick={logout}>Odhlásiť sa</button>
+                                <button onClick={() => {
+                                    logoutUser();
+                                    logout();
+                                }}>Odhlásiť sa</button>
                             </li>
                         </>
                     ) : (

@@ -3,9 +3,19 @@ import {Request, Response} from "express";
 import {db} from "../config/firebaseConfig";
 import {UserRole, User} from "../types";
 import {comparePasswords, hashPassword} from "../utils/passwordUtils";
+import * as jwt from "jsonwebtoken";
+import {secret} from "../config/secret.json";
 
 const userCollection = db.collection("users");
 const psychologistCollection = db.collection("psychologists");
+
+// const jwtSecret = process.env.JWT_SECRET as string;
+const jwtSecret = secret;
+
+if (!jwtSecret) {
+  console.error("FATAL ERROR: JWT secret is not defined.");
+  // process.exit(1);
+}
 
 export const createAdmin =
   async (req: Request, res: Response):Promise<void> => {
@@ -177,8 +187,24 @@ export const loginUser = async (req: Request, res: Response) => {
       await comparePasswords(password, data.hashedPassword);
 
     if (isPasswordValid) {
+      const payload = {
+        userId: email,
+        role: data.role,
+      };
+      const token = jwt.sign(payload, jwtSecret, {expiresIn: "1h"});
+
+      const oneHourInMillis = 60 * 60 * 1000;
+      res.cookie("authToken", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "lax",
+        maxAge: oneHourInMillis,
+        path: "/",
+      });
+
       res.status(200).json({
         message: "Úspešne prihlásený.",
+        token: token,
         role: data.role as UserRole,
         userId: doc.id,
       });
@@ -190,5 +216,22 @@ export const loginUser = async (req: Request, res: Response) => {
   } catch (error: unknown) {
     console.error("Chyba pri prihlasovaní:", error);
     res.status(500).json({message: "Nepodarilo sa prihlásiť."});
+  }
+};
+
+export const logoutUser = async (req: Request, res: Response) => {
+  try {
+    res.cookie("authToken", "", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      expires: new Date(0),
+      path: "/",
+    });
+
+    res.status(200).json({message: "Úspešne odhlásený."});
+  } catch (error: unknown) {
+    console.error("Chyba pri odhlasovaní:", error);
+    res.status(500).json({message: "Nepodarilo sa odhlásiť."});
   }
 };

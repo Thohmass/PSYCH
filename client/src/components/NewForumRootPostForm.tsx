@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import {NewForumPostFormProps} from "../../../shared/src/forum";
 
 const NewForumRootPostForm: React.FC<NewForumPostFormProps> = ( {onPostCreated}) => {
-    const { isAuthenticated, userId } = useAuth(); // Získame stav prihlásenia
+    const { isAuthenticated } = useAuth();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [error, setError] = useState<string | null>(null);
@@ -24,15 +24,11 @@ const NewForumRootPostForm: React.FC<NewForumPostFormProps> = ( {onPostCreated})
         }
 
         try {
-            // Voláme funkciu z nášho servisného súboru na odoslanie dát na backend
-            const newPost = await createForumPost('', '', userId, title, content);
+            await createForumPost('', '', title, content);
             setSuccessMessage('Príspevok úspešne vytvorený!');
-            setTitle(''); // Vyčistíme formulár po úspešnom odoslaní
+            setTitle('');
             setContent('');
             onPostCreated();
-            // Tu by si mohol napríklad:
-            // - presmerovať používateľa na detail vytvoreného príspevku (ak ho backend vráti)
-            // - aktualizovať zoznam príspevkov na stránke (ak si na stránke zoznamu)
         } catch (err: any) {
             setError(err.message || 'Nepodarilo sa vytvoriť príspevok.');
             console.error('Chyba pri odosielaní príspevku:', err);
@@ -41,7 +37,6 @@ const NewForumRootPostForm: React.FC<NewForumPostFormProps> = ( {onPostCreated})
         }
     };
 
-    // Zobrazíme formulár len ak je používateľ prihlásený
     if (!isAuthenticated) {
         return <div>Pre písanie príspevkov do fóra sa prosím prihláste.</div>;
     }

@@ -45,7 +45,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://127.0.0.1:5001/hladampsychologa/us-central1/api",
+  "proxy": "http://127.0.0.1:5001/hladampsychologa/europe-central2/api",
   "devDependencies": {
     "ts-loader": "^9.5.2"
   }

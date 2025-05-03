@@ -36,20 +36,14 @@ export const getForumPostDetail = async (postId: string): Promise<ForumPost | nu
 };
 
 export const createForumPost = async (rootPostId: string, parentPostId: string,
-                                      userId: string | undefined, title: string, content: string): Promise<ForumPost> => {
+                                      title: string, content: string): Promise<ForumPost> => {
     try {
-
-        // if (userId === null) {
-        //     userId = '';
-        // }
-        // TODO: Pri odosielaní príspevku bude potrebné pridať autorizačnú hlavičku
         const response = await fetch('/api/forum/posts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': userId
             },
-            body: JSON.stringify({ rootPostId, parentPostId, authorUserId: userId == null ? '' : userId, title, content }),
+            body: JSON.stringify({ rootPostId, parentPostId, title, content }),
         });
 
         if (!response.ok) {
