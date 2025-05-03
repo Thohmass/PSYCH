@@ -1,2 +1,2 @@
-export * from './roles';
-export * from './forum';
+export * from './roles.js';
+export * from './forum.js';
