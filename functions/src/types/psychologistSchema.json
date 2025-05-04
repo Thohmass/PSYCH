@@ -1,0 +1,77 @@
+{
+  "name": "Psychologist",
+  "type": "object",
+  "properties": {
+    "userID": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "description": "Krstné meno psychológa."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Priezvisko psychológa."
+    },
+    "description": {
+      "type": "string",
+      "description": "Popis psychológa."
+    },
+    "qualification": {
+      "type": "string",
+      "description": "Kvalifikácia psychológa."
+    },
+    "experience": {
+      "type": "string",
+      "description": "Skúsenosti psychológa."
+    },
+    "languages": {
+      "type": "string",
+      "description": "Jazyky psychológa."
+    },
+    "priceRange": {
+      "type": "string",
+      "description": "Cenové rozmedzie za jedno sedenie psychológa."
+    },
+    "address": {
+      "type": "string",
+      "description": "Adresa psychológa."
+    },
+    "contactInfo": {
+      "type": "string",
+      "description": "Celé meno psychológa."
+    },
+    "photoURL": {
+      "type": "string",
+      "description": "Celé meno psychológa."
+    },
+    "onlineTherapyOption": {
+      "type": "boolean",
+      "description": "Celé meno psychológa."
+    },
+    "specializations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Zoznam špecializácií psychológa."
+    },
+    "therapyTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Zoznam typov terapií psychológa."
+    },
+    "locations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Zoznam lokácií psychológa."
+    }
+  },
+  "required": [],
+  "additionalProperties": false,
+  "description": "Schéma pre polia profilu psychológa."
+}

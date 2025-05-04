@@ -10,7 +10,7 @@ if (!jwtSecret) {
   console.error("FATAL ERROR: JWT secret is not defined in functions config.");
 }
 
-interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest extends Request {
   user?: {
     userId: string;
     role: RoleType;

@@ -1,4 +1,3 @@
-// server_old/src/controllers/userAuthController.ts
 import {Request, Response} from "express";
 import {db} from "../config/firebaseConfig";
 import {UserRole, User} from "../types";
