@@ -12,6 +12,7 @@ import ForumPostList from "./pages/ForumPostList";
 import ForumPostDetail from "./pages/ForumPostDetail";
 import FeedbackForm from "./components/FeedbackForm";
 import {logoutUser} from "./services/authService";
+import ClientRegistrationForm from "./components/ClientRegistrationForm";
 
 function App() {
     const { isAuthenticated, logout, userRole } = useAuth();
@@ -56,7 +57,7 @@ function App() {
                                 <Link to="/login">Prihlásiť sa</Link>
                             </li>
                             <li>
-                                <Link to="/register">Registrovať sa</Link>
+                                <p>Registrovať sa:  <Link to="/register-client">Klient</Link>  |  <Link to="/register-psychologist">Psychológ</Link></p>
                             </li>
                         </>
                     )}
@@ -71,7 +72,8 @@ function App() {
                 <Route path="/feedback" element={<FeedbackForm/>}/>
                 <Route path="/psychologists/:id" element={<PsychologistProfilePage/>}/>
                 <Route path="/login" element={<LoginForm/>}/>
-                <Route path="/register" element={<PsychologistRegistrationForm/>}/>
+                <Route path="/register-client" element={<ClientRegistrationForm/>}/>
+                <Route path="/register-psychologist" element={<PsychologistRegistrationForm/>}/>
                 <Route path="/admin" element={<AdminDashboard/>}/>
                 <Route path="/unauthorized" element={<div>Nemáte povolenie na prístup na túto stránku.</div>}/>
             </Routes>

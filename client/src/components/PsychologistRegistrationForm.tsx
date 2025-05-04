@@ -105,7 +105,7 @@ const PsychologistRegistrationForm: React.FC = () => {
             {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="email">Emailov adresa:</label>
+                    <label htmlFor="email">Emailová adresa:</label>
                     <input
                         type="text"
                         id="email"
