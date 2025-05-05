@@ -1,6 +1,12 @@
 import React from 'react';
 import './styles/App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Link,
+    useNavigate
+} from 'react-router-dom';
 import SearchForm from './components/SearchForm';
 import PsychologistProfilePage from './pages/PsychologistProfilePage';
 import SearchResultsPage from './pages/SearchResultsPage';
@@ -13,9 +19,11 @@ import ForumPostDetail from "./pages/ForumPostDetail";
 import FeedbackForm from "./components/FeedbackForm";
 import {logoutUser} from "./services/authService";
 import ClientRegistrationForm from "./components/ClientRegistrationForm";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
     const { isAuthenticated, logout, userRole } = useAuth();
+    // const navigate = useNavigate();
 
     return (
         <BrowserRouter>
@@ -48,6 +56,7 @@ function App() {
                                 <button onClick={() => {
                                     logoutUser();
                                     logout();
+                                    // navigate("/login");
                                 }}>Odhlásiť sa</button>
                             </li>
                         </>
@@ -75,6 +84,8 @@ function App() {
                 <Route path="/register-client" element={<ClientRegistrationForm/>}/>
                 <Route path="/register-psychologist" element={<PsychologistRegistrationForm/>}/>
                 <Route path="/admin" element={<AdminDashboard/>}/>
+                <Route path="/profile" element={<ProfilePage/>}/>
+                <Route path="/profile/edit" element={<ProfilePage/>}/>
                 <Route path="/unauthorized" element={<div>Nemáte povolenie na prístup na túto stránku.</div>}/>
             </Routes>
         </BrowserRouter>

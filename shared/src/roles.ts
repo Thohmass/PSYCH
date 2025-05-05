@@ -26,9 +26,10 @@ export enum TherapyType {
 export interface User {
     email: string;
     hashedPassword: string;
-    registrationDate: string;
+    timeStamp: string;
     role: string;
-    // userID: string
+    userId?: string
+    psychologistId?: string;
 }
 
 export interface Psychologist {

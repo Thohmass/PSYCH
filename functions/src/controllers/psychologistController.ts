@@ -2,7 +2,7 @@ import {Request, Response} from "express";
 import {db} from "../config/firebaseConfig";
 import {Psychologist} from "../types";
 import {AuthenticatedRequest} from "../middleware/authMiddleware";
-import psychologistSchema from "../types/psychologistSchema.json"
+import psychologistSchema from "../types/psychologistSchema.json";
 
 const psychologistsCollection = db.collection("psychologists");
 
@@ -59,70 +59,70 @@ export const getPsychologistById = async (req: Request, res: Response) => {
 
 export const editPsychologist =
   async (req: AuthenticatedRequest, res: Response) => {
+    const userId = req.user?.userId;
+    const psychologistId = req.params.id;
+    const userRole = req.user?.role;
+    const updatedProfileData = req.body;
 
-  const userId = req.user?.userId;
-  const psychologistId = req.params.id;
-  const userRole = req.user?.role;
-  const updatedProfileData = req.body;
-
-  if (!userId || !userRole) {
-    res.status(401).json({ message: 'Používateľ nie je autentifikovaný.' });
-    return;
-  }
-
-  const allowedUpdatesFromSchema = Object.keys(psychologistSchema.properties);
-  const disallowedFields = ['userId'];
-  const allowedUpdates = allowedUpdatesFromSchema.filter(field =>
-    !disallowedFields.includes(field)
-  ) as (keyof Psychologist)[];
-  // const allowedUpdates = allowedUpdatesFromSchema as (keyof Psychologist)[];
-
-  const updates: any = {}; // TODO: Lepšie typovanie
-  Object.keys(updatedProfileData).forEach((field: string | number) => {
-    if (allowedUpdates.includes(field as keyof Psychologist)) {
-      updates[field] = updatedProfileData[field];
-    } else {
-      console.warn(
-        `${req.user?.userId} sa pokúsil aktualizovať nepovolené pole (${field})`
-      );
-    }
-    if (updatedProfileData.hasOwnProperty(field)) {
-      updates[field] = updatedProfileData[field];
-    }
-  })
-
-  try {
-    const targetPsychologistSnapshot =
-      await psychologistsCollection.doc(psychologistId).get();
-    const targetPsychologist = targetPsychologistSnapshot.data();
-
-    if (!targetPsychologist) {
-      res.status(404).json({
-        message: `Psycholog s ID ${psychologistId} nenádený.`
-      });
+    if (!userId || !userRole) {
+      res.status(401).json({message: "Používateľ nie je autentifikovaný."});
       return;
     }
-    if (targetPsychologist.userId !== userId) {
-      res.status(409).json({
-        message: `Profil psychologa s ID ${psychologistId} nepatri
-         pouzivatelovi ${userId}.`
-      })
-    }
 
-    await psychologistsCollection.doc(psychologistId).update(
-      {
-        ...updates,
+    const allowedUpdatesFromSchema = Object.keys(psychologistSchema.properties);
+    const disallowedFields = ["userId"];
+    const allowedUpdates = allowedUpdatesFromSchema.filter((field) =>
+      !disallowedFields.includes(field)
+    ) as (keyof Psychologist)[];
+
+    // eslint-disable-next-line
+    const updates: any = {}; // TODO: Lepšie typovanie
+    Object.keys(updatedProfileData).forEach((field: string | number) => {
+      if (allowedUpdates.includes(field as keyof Psychologist)) {
+        updates[field] = updatedProfileData[field];
+      } else {
+        console.warn(
+          `Používateľ sa pokúsil aktualizovať nepovolené pole (${field})`
+        );
       }
-    )
+      // eslint-disable-next-line
+      if (updatedProfileData.hasOwnProperty(field)) {
+        updates[field] = updatedProfileData[field];
+      }
+    });
 
-    res.status(200).json({
-      message: `Profil psychológa ${psychologistId} úspešne aktualizovaný.`
-    });
-  } catch (error: any) {
-    console.error(
-      `Chyba pri aktualizácii profilu psychológa ${psychologistId}:`, error);
-    res.status(500).json({
-      message: 'Nepodarilo sa aktualizovať profil psychológa.'
-    });
-  }
-}
+    try {
+      const targetPsychologistSnapshot =
+      await psychologistsCollection.doc(psychologistId).get();
+      const targetPsychologist = targetPsychologistSnapshot.data();
+
+      if (!targetPsychologist) {
+        res.status(404).json({
+          message: `Psycholog s ID ${psychologistId} nenádený.`,
+        });
+        return;
+      }
+      if (targetPsychologist.userId !== userId) {
+        res.status(409).json({
+          message: `Profil psychologa s ID ${psychologistId} nepatri
+         pouzivatelovi ${userId}.`,
+        });
+      }
+
+      await psychologistsCollection.doc(psychologistId).update(
+        {
+          ...updates,
+        }
+      );
+
+      res.status(200).json({
+        message: `Profil psychológa ${psychologistId} úspešne aktualizovaný.`,
+      });
+    } catch (error: unknown) {
+      console.error(
+        `Chyba pri aktualizácii profilu psychológa ${psychologistId}:`, error);
+      res.status(500).json({
+        message: "Nepodarilo sa aktualizovať profil psychológa.",
+      });
+    }
+  };

@@ -18,4 +18,5 @@
 /functions/src/config/secret.json
 /functions/lib/config/secret.json
 /functions/lib/functions/src/config/hladampsychologaFirebaseAdminSDK.json
+/functions/lib/
 /firebase-debug.log

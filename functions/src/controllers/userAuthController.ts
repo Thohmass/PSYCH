@@ -4,6 +4,7 @@ import {UserRole, User} from "../types";
 import {comparePasswords, hashPassword} from "../utils/passwordUtils";
 import * as jwt from "jsonwebtoken";
 import {secret} from "../config/secret.json";
+import {AuthenticatedRequest} from "../middleware/authMiddleware";
 
 const userCollection = db.collection("users");
 const psychologistCollection = db.collection("psychologists");
@@ -187,7 +188,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
     if (isPasswordValid) {
       const payload = {
-        userId: email,
+        userId: doc.id,
         role: data.role,
       };
       const token = jwt.sign(payload, jwtSecret, {expiresIn: "1h"});
@@ -201,6 +202,8 @@ export const loginUser = async (req: Request, res: Response) => {
         path: "/",
       });
 
+      console.log(doc.id);
+      console.log(data.role as UserRole);
       res.status(200).json({
         message: "Úspešne prihlásený.",
         token: token,
@@ -232,5 +235,36 @@ export const logoutUser = async (req: Request, res: Response) => {
   } catch (error: unknown) {
     console.error("Chyba pri odhlasovaní:", error);
     res.status(500).json({message: "Nepodarilo sa odhlásiť."});
+  }
+};
+
+export const getUserData = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    console.log(req.user);
+    console.log(req.user?.userId);
+    console.log(req.user?.role);
+    console.log("Pokus o ziskanie udajov pouzivatela");
+    const userId = req.user?.userId;
+    const userRole = req.user?.role;
+
+    if (!userId || !userRole) {
+      res.status(401).json({message: "Používateľ nie je autentifikovaný."});
+      return;
+    }
+
+    const userRef = await userCollection.doc(userId).get();
+    if (!userRef.exists) {
+      res.status(404).send("Používateľ nebol nájdený");
+      return;
+    }
+    // eslint-disable-next-line
+    const {hashedPassword, ...allData} = userRef.data() as User;
+    res.status(200).json({
+      userId: userRef.id,
+      ...allData,
+    });
+  } catch (error) {
+    console.error("Chyba pri získavaní údajov používateľa:", error);
+    res.status(500).send("Chyba pri získavaní dát používateľa.");
   }
 };
