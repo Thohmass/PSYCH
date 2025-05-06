@@ -40,11 +40,17 @@ const HomePage: React.FC = () => {
   return (
     <div className="container">
       <h1>Vitajte na hladamskychologa.sk</h1>
+      <p>
+        Hľadáte psychologickú pomoc na Slovensku? Stránka hladamskychologa.sk je tu, aby vám pomohla zorientovať sa a nájsť vhodného odborníka či službu.
+        Ponúkame prehľad psychológov, psychiatrov, psychoterapeutov, agentúr, neziskových organizácií, krízových liniek a ďalších poskytovateľov pomoci.
+        Naším cieľom je uľahčiť vám prístup k potrebnej podpore na vašej ceste k duševnej pohode.
+      </p>
+      <p>Ak si nie ste istí, aký typ pomoci hľadať, vyskúšajte náš <a href="/survey">dotazník</a> a získajte prvé odporúčania.</p>
       <p>Tu nájdete zoznam poskytovateľov psychologickej pomoci a súvisiacich služieb na Slovensku.</p>
 
       {Object.keys(groupedProviders).map(category => (
         <div key={category}>
-          <h2>{category}</h2>
+          <h3>{category}</h3>
           <ul>
             {groupedProviders[category].map(provider => (
               <li key={provider.name}> {/* Kľúč by mal byť unikátny, ak by bol názov rovnaký*/}
