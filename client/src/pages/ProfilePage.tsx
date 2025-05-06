@@ -16,14 +16,18 @@ const ProfilePage: React.FC = () => {
 
     try {
       const response = await fetch('/api/auth/user-data');
+      console.log(response);
       const data = await response.json() as User;
+      console.log(data);
       setUser(data);
+      console.log(data.psychologistId);
       if (data.psychologistId) {
         await fetchPsychologist(data.psychologistId);
+        console.log(psychologist);
       }
     } catch (error) {
-      setError('Nepodarilo sa načítať detail príspevku fóra.');
-      console.error('Chyba pri načítavaní detailu príspevku fóra:', error);
+      setError('Nepodarilo sa načítať detail používateľského profilu.');
+      console.error('Chyba pri načítavaní detailu používateľského profilu:', error);
     } finally {
       setLoading(false);
     }
@@ -34,7 +38,8 @@ const ProfilePage: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
-        const data = await getPsychologistById(id);
+        const data = await getPsychologistById(id) as Psychologist;
+        console.log(data);
         setPsychologist(data);
       } catch (err: any) {
         setError('Nepodarilo sa načítať profil psychológa.');
