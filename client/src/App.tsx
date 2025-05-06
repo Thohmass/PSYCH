@@ -20,6 +20,7 @@ import FeedbackForm from "./components/FeedbackForm";
 import {logoutUser} from "./services/authService";
 import ClientRegistrationForm from "./components/ClientRegistrationForm";
 import ProfilePage from "./pages/ProfilePage";
+import SurveyPage from "./pages/SurveyPage";
 
 function App() {
     const { isAuthenticated, logout, userRole } = useAuth();
@@ -34,6 +35,9 @@ function App() {
                     </li>
                     <li>
                         <Link to="/search">Výsledky vyhľadávania</Link>
+                    </li>
+                    <li>
+                        <Link to={"/survey"}>Odporúčací dotazník</Link>
                     </li>
                     <li>
                         <Link to="/forum">Fórum</Link>
@@ -87,6 +91,7 @@ function App() {
                 <Route path="/profile" element={<ProfilePage/>}/>
                 <Route path="/profile/edit" element={<ProfilePage/>}/>
                 <Route path="/unauthorized" element={<div>Nemáte povolenie na prístup na túto stránku.</div>}/>
+                <Route path="/survey" element={<SurveyPage />}/>
             </Routes>
         </BrowserRouter>
     );

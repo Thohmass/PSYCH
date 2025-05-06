@@ -5,6 +5,7 @@ import forumRoutes from "./routes/forumRoutes";
 import feedbackRoutes from "./routes/feedbackRoutes";
 import cookieParser from "cookie-parser";
 import {onRequest} from "firebase-functions/v2/https";
+import surveyRoutes from "./routes/surveyRoutes";
 // import {defineSecret} from "firebase-functions/params";
 // import {secret} from "./config/secret.json";
 
@@ -20,6 +21,7 @@ app.use("/api/psychologists", psychologistRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/forum", forumRoutes);
 app.use("/api/feedback", feedbackRoutes);
+app.use("/api/survey", surveyRoutes);
 
 export const api = onRequest(
   {
