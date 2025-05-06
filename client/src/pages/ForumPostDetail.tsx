@@ -47,7 +47,7 @@ const ForumPostDetail: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="container forum-post-detail">
             <h2>{post.title || 'Bez názvu'}</h2> {/* Zobraz názov hlavného príspevku */}
             <p>od: {post.authorUserId} - {new Date(post.postDate).toLocaleString()}</p>
             <div>{post.content}</div> {/* Obsah hlavného príspevku */}

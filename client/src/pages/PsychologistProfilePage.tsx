@@ -45,7 +45,7 @@ const PsychologistProfilePage: React.FC = () => {
     }
 
     return (
-        <div className="psychologist-profile-page">
+        <div className="container psychologist-profile-page">
             <h2>{psychologist.name} {psychologist.lastName}</h2>
             {psychologist.photoURL && (
                 <img src={psychologist.photoURL} alt={`${psychologist.name} ${psychologist.lastName}`}

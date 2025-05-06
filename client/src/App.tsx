@@ -1,5 +1,4 @@
 import React from 'react';
-import './styles/App.css';
 import {
     BrowserRouter,
     Routes,
@@ -22,18 +21,19 @@ import ClientRegistrationForm from "./components/ClientRegistrationForm";
 import ProfilePage from "./pages/ProfilePage";
 import SurveyPage from "./pages/SurveyPage";
 import HomePage from "./pages/HomePage";
+import "./styles/styles.css"
 
 function App() {
-    const { isAuthenticated, logout, userRole } = useAuth();
-    // const navigate = useNavigate();
+  const { isAuthenticated, logout, userRole } = useAuth();
+  // const navigate = useNavigate();
 
-    return (
-        <BrowserRouter>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/">Domov</Link>
-                    </li>
+  return (
+    <BrowserRouter>
+          <nav>
+              <ul>
+                  <li>
+                      <Link to="/">Domov</Link>
+                  </li>
                     <li>
                         <Link to="/search">Nájdi psychológa</Link>
                     </li>
@@ -51,58 +51,66 @@ function App() {
                     </li>
                     {isAuthenticated ? (
                       <>
-                          {userRole === 'admin' ? (
-                            <li>
-                                <Link to="/admin">Admin Dashboard</Link>
-                            </li>
-                          ) : (
-                            <li>
-                                <Link to="/profile">Profile Page</Link>
-                            </li>
-                          )}
+                        {userRole === 'admin' ? (
                           <li>
-                              <button onClick={() => {
-                                  logoutUser();
-                                  logout();
-                                  // navigate("/login");
-                              }}>Odhlásiť sa
-                              </button>
+                              <Link to="/admin">Admin Dashboard</Link>
                           </li>
+                        ) : (
+                          <li>
+                              <Link to="/profile">Profile Page</Link>
+                          </li>
+                        )}
+                        <li>
+                          <button onClick={() => {
+                              logoutUser();
+                              logout();
+                              // navigate("/login");
+                          }}>Odhlásiť sa
+                          </button>
+                        </li>
                       </>
                     ) : (
                       <>
-                          <li>
-                              <Link to="/login">Prihlásiť sa</Link>
-                          </li>
-                          <li>
-                              <p>Registrovať sa: <Link
-                                to="/register-client">Klient</Link> | <Link
-                                to="/register-psychologist">Psychológ</Link></p>
-                          </li>
+                        <li>
+                            <Link to="/login">Prihlásiť sa</Link>
+                        </li>
+                        <li className="has-submenu">
+                          <a href="#">Registrovať sa</a>
+                          <ul className="submenu">
+                            <li>
+                              <Link
+                                to="/register-client">Klient</Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="/register-psychologist">Psychológ</Link>
+                            </li>
+                          </ul>
+                      </li>
                       </>
                     )}
-                </ul>
-            </nav>
+              </ul>
+          </nav>
 
-            <Routes>
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/search" element={<SearchForm/>}/>
-                <Route path="/results" element={<SearchResultsPage/>}/>
-                <Route path="/forum" element={<ForumPostList/>}/>
-                <Route path="/forum/:postId" element={<ForumPostDetail/>}/>
-                <Route path="/feedback" element={<FeedbackForm/>}/>
-                <Route path="/psychologists/:id" element={<PsychologistProfilePage/>}/>
-                <Route path="/login" element={<LoginForm/>}/>
-                <Route path="/register-client" element={<ClientRegistrationForm/>}/>
-                <Route path="/register-psychologist" element={<PsychologistRegistrationForm/>}/>
-                <Route path="/admin" element={<AdminDashboard/>}/>
-                <Route path="/profile" element={<ProfilePage/>}/>
-                <Route path="/profile/edit" element={<ProfilePage/>}/>
-                <Route path="/unauthorized" element={<div>Nemáte povolenie na prístup na túto stránku.</div>}/>
-                <Route path="/survey" element={<SurveyPage />}/>
-            </Routes>
-        </BrowserRouter>
-    );
+        <Routes>
+          <Route path="/" element={<HomePage/>}/>
+          <Route path="/search" element={<SearchForm/>}/>
+          <Route path="/results" element={<SearchResultsPage/>}/>
+          <Route path="/forum" element={<ForumPostList/>}/>
+          <Route path="/forum/:postId" element={<ForumPostDetail/>}/>
+          <Route path="/feedback" element={<FeedbackForm/>}/>
+          <Route path="/psychologists/:id" element={<PsychologistProfilePage/>}/>
+          <Route path="/login" element={<LoginForm/>}/>
+          <Route path="/register-client" element={<ClientRegistrationForm/>}/>
+          <Route path="/register-psychologist" element={<PsychologistRegistrationForm/>}/>
+          <Route path="/admin" element={<AdminDashboard/>}/>
+          <Route path="/profile" element={<ProfilePage/>}/>
+          <Route path="/profile/edit" element={<ProfilePage/>}/>
+          <Route path="/unauthorized" element={<div>Nemáte povolenie na prístup na túto stránku.</div>}/>
+          <Route path="/survey" element={<SurveyPage />}/>
+        </Routes>
+      </BrowserRouter>
+  );
 }
 
 export default App;

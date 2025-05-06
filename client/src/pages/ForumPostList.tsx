@@ -36,7 +36,7 @@ const ForumPostList: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="container forum-post-list">
             <h2>Diskusné fórum</h2>
             {/* Tu by mohlo byť tlačidlo na vytvorenie nového príspevku (len pre prihlásených) */}
             {posts.length > 0 ? (

@@ -38,7 +38,7 @@ const groupedProviders = providersData.reduce((acc, provider) => {
 const HomePage: React.FC = () => {
 
   return (
-    <div>
+    <div className="container">
       <h1>Vitajte na hladamskychologa.sk</h1>
       <p>Tu nájdete zoznam poskytovateľov psychologickej pomoci a súvisiacich služieb na Slovensku.</p>
 

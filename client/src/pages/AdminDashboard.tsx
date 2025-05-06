@@ -10,7 +10,7 @@ const AdminDashboard: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="container admin-dashboard">
             <h2>Administrátorský panel</h2>
             <p>Vitajte v administrátorskom paneli!</p>
             {/* Obsah pre administrátorov */}

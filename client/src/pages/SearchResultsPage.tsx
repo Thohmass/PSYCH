@@ -57,7 +57,7 @@ const SearchResultsPage: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="container search-results-page">
             <h2>Výsledky vyhľadávania</h2>
             {filteredPsychologists.length > 0 ? (
                 filteredPsychologists.map((psychologist) => (

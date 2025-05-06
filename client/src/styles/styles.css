@@ -1,0 +1,393 @@
+/* client/src/styles.css */
+
+/* --- Základné nastavenia a CSS Vlastnosti (Variables) --- */
+
+/* Definovanie farebnej palety a základného rozostupu pomocou CSS Vlastností */
+/* Tieto farby a hodnoty si môžeš upraviť podľa vlastných preferencií */
+:root {
+    --color-primary: #5a8d9d; /* Hlavná farba - pokojná, profesionálna */
+    --color-secondary: #2c5a6b; /* Tmavšia varianta, vhodná pre nadpisy */
+    --color-accent: #86b3d1; /* Akcentová farba - svetlejšia, doplnková */
+    --color-text-dark: #333; /* Tmavý text pre dobrú čitateľnosť */
+    --color-text-light: #555; /* Svetlejší text */
+    --color-background-light: #f8f9fa; /* Svetlé pozadie */
+    --color-background-white: #fff; /* Biele pozadie */
+    --color-border: #ddd; /* Farba okrajov/liniek */
+    --color-success: #28a745; /* Zelená pre úspech/potvrdenie */
+    --color-error: #dc3545; /* Červená pre chyby */
+
+    --spacing-unit: 8px; /* Základná jednotka pre rozostupy (margin, padding) */
+    --spacing-sm: calc(var(--spacing-unit) * 1);   /* 8px */
+    --spacing-md: calc(var(--spacing-unit) * 2);   /* 16px */
+    --spacing-lg: calc(var(--spacing-unit) * 3);   /* 24px */
+    --spacing-xl: calc(var(--spacing-unit) * 5);   /* 40px */
+
+    --border-radius: 4px; /* Zaoblenie rohov */
+
+    --font-family-base: 'Open Sans', sans-serif; /* Základný font pre text */
+    --font-family-heading: 'Raleway', sans-serif; /* Font pre nadpisy */
+    --font-size-base: 1rem; /* Základná veľkosť písma (16px predvolene) */
+}
+
+
+/* Nastavenie box-sizing pre jednoduchší layout */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    line-height: 1.6; /* Zlepšuje čitateľnosť */
+    color: var(--color-text-light);
+    /* --- Pridanie béžovej farby pozadia --- */
+    background-color: #f8f8e7; /* Svetlá béžová. Môžeš použiť napr. aj #f5f5dc, #fff8dc */
+    /* ------------------------------------- */
+    margin: 0; /* Odstránenie predvoleného marginu */
+    padding: 0;
+    min-height: 100vh; /* Zabezpečí, že pozadie pokryje celú výšku viewportu */
+}
+
+/* --- Typografia --- */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+    color: var(--color-text-dark);
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+}
+
+h1 { font-size: 2.5rem; } /* 40px */
+h2 { font-size: 2rem; }   /* 32px */
+h3 { font-size: 1.75rem; }/* 28px */
+/* Atd. pre menšie nadpisy */
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none; /* Odstránenie podčiarknutia */
+    transition: color 0.2s ease-in-out; /* Plynulý prechod farby pri hover */
+}
+
+a:hover {
+    color: var(--color-secondary); /* Zmena farby pri najazdení myšou */
+    text-decoration: underline; /* Voliteľné: znova pridať podčiarknutie pri hover */
+}
+
+/* --- Layout --- */
+
+.container {
+    max-width: 1200px; /* Maximálna šírka obsahu */
+    margin: 0 auto; /* Centrovanie kontajnera */
+    /* --- Väčšie odsadenie od okrajov vrátane ľavého --- */
+    padding: var(--spacing-md);; /* Použi väčšiu premennú, napr. var(--spacing-lg) = 24px */
+    /* Alebo nastaviť konkrétnu hodnotu, napr.: padding: 20px; */
+    /* --------------------------------------------- */
+}
+
+/* Responzívne úpravy kontajnera pre menšie obrazovky */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-sm); /* Menšie odsadenie na mobiloch */
+    }
+}
+
+/* Flexbox pre jednoduché centrovanie/rozmiestnenie prvkov */
+.flex-group {
+    display: flex;
+    gap: var(--spacing-md); /* Medzera medzi flex prvkami */
+    align-items: center; /* Vertikálne centrovanie */
+    margin-bottom: var(--spacing-md);
+}
+/* Voliteľné: Wrap pre prvky ak sa nezmestia */
+.flex-group.wrap {
+    flex-wrap: wrap;
+}
+
+
+/* Grid pre komplexnejšie rozmiestnenie (napr. formuláre, karty) */
+.grid-layout {
+    display: grid;
+    gap: var(--spacing-md); /* Medzera medzi grid prvkami */
+    /* Príklad 2 stĺpcového layoutu, ktorý sa na mobiloch zmení na 1 stĺpec */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin-bottom: var(--spacing-md);
+}
+
+
+/* --- Komponenty --- */
+
+/* Tlačidlá */
+button {
+    display: inline-block; /* Aby margin a padding fungovali správne */
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-base);
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+
+    background-color: var(--color-primary);
+    color: var(--color-background-white); /* Text bielej farby */
+}
+
+button:hover {
+    background-color: var(--color-secondary); /* Tmavší odtieň pri hover */
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Voliteľné: Sekundárne tlačidlo */
+button.secondary {
+    background-color: var(--color-border);
+    color: var(--color-text-dark);
+}
+
+button.secondary:hover {
+    background-color: var(--color-text-light);
+    color: var(--color-background-white);
+}
+
+
+/* Formulárové prvky (input, textarea, select) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    display: block; /* Každý prvok na novom riadku */
+    width: 100%; /* Šírka na 100% rodiča */
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-base);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+}
+
+/* Focus stav pre lepšiu prístupnosť */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    outline: none; /* Odstránenie predvoleného modrého/oranžového obrysu */
+    border-color: var(--color-primary); /* Zmena farby okraja */
+    box-shadow: 0 0 0 0.2rem rgba(var(--color-primary-rgb, 90, 141, 157), 0.25); /* Jemný tieň */
+}
+/* Definuj --color-primary-rgb vo :root pre tieň */
+:root {
+    --color-primary: #5a8d9d; /* Hlavná farba */
+    --color-primary-rgb: 90, 141, 157; /* RGB hodnoty hlavnej farby pre rgba() */
+    /* ... ostatné vlastnosti ... */
+}
+
+
+label {
+    display: block; /* Label nad inputom */
+    margin-bottom: var(--spacing-sm);
+    font-weight: bold;
+    color: var(--color-text-dark);
+}
+
+/* Styling pre radio a checkbox (ak sú renderované priamo, nie v špeciálnom komponente) */
+input[type="radio"],
+input[type="checkbox"] {
+    display: inline-block; /* Zobraziť vedľa labelu */
+    width: auto; /* Vrátiť automatickú šírku */
+    margin-right: var(--spacing-sm); /* Medzera medzi inputom a labelom */
+    margin-bottom: 0; /* Odstrániť spodný margin, ak je v liste */
+}
+label input[type="radio"],
+label input[type="checkbox"] {
+    margin-bottom: var(--spacing-sm); /* Margin pod celým riadkom s labelom a inputom */
+    display: flex; /* Použiť flexbox pre zarovnanie inputu a textu labelu */
+    align-items: center;
+}
+label input[type="radio"] input,
+label input[type="checkbox"] input {
+    margin-bottom: 0; /* Odstrániť margin z vnútorného inputu */
+}
+
+
+/* Zoznamy (napr. pre zoznam poskytovateľov) */
+ul {
+    list-style: none; /* Odstránenie predvolených bodiek/čísel */
+    padding: 0; /* Odstránenie predvoleného ľavého paddingu */
+    margin-bottom: var(--spacing-md);
+}
+
+li {
+    margin-bottom: var(--spacing-sm); /* Medzera medzi položkami zoznamu */
+    /* Voliteľné: pridať jemný spodný okraj alebo pozadie pre lepšie oddelenie položiek */
+    /* border-bottom: 1px solid var(--color-border); */
+    /* padding-bottom: var(--spacing-sm); */
+}
+
+/* Voliteľné: Styling pre "karty" (ak zoznamové položky balíš do kontajnerov) */
+.card {
+    background-color: var(--color-background-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Jemný tieň */
+}
+
+
+/* --- Správy o stave (Error/Success) --- */
+.error-message {
+    color: var(--color-error);
+    font-weight: bold;
+    margin-bottom: var(--spacing-md);
+}
+
+.success-message {
+    color: var(--color-success);
+    font-weight: bold;
+    margin-bottom: var(--spacing-md);
+}
+
+
+/* --- Responzívne úpravy (základné) --- */
+
+/* Príklad úprav pre menšie obrazovky (mobily) */
+@media (max-width: 576px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+
+    /* Zmenšiť medzery, ak je to potrebné */
+    :root {
+        --spacing-md: calc(var(--spacing-unit) * 1.5); /* Napr. 12px */
+    }
+
+    /* Ak si použil Grid s minmax, už je responzívny */
+    /* Ak si použil Grid s pevným počtom stĺpcov, uprav ho */
+    /* .grid-layout {
+         grid-template-columns: 1fr; // Na mobiloch len jeden stĺpec
+    } */
+
+}
+
+
+/* --- Prístupnosť --- */
+/* Zabezpečenie viditeľného focus stavu pre interaktívne prvky (tlačidlá, odkazy, inputy) */
+/* Prehliadače predvolene zobrazujú focus obrys, ale ak ho zmeníš (outline: none),
+   musíš poskytnúť vlastný viditeľný focus stav (napr. pomocou box-shadow alebo border).
+   Použitie :focus-visible je modernejší spôsob, ktorý zobrazí focus len vtedy,
+   keď je prvok fokusuvaný klávesnicou (nie kliknutím myšou). */
+button:focus-visible,
+a:focus-visible,
+input[type="text"]:focus-visible,
+input[type="email"]:focus-visible,
+input[type="password"]:focus-visible,
+input[type="number"]:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--color-secondary); /* Viditeľný obrys */
+    /* Alebo použiť box-shadow pre konzistentný vzhľad s inputmi */
+    /* box-shadow: 0 0 0 0.2rem rgba(var(--color-secondary-rgb, 44, 90, 107), 0.5); */
+    /* Definuj --color-secondary-rgb vo :root */
+}
+
+/* --- Navigačné menu (príklad štýlov) --- */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Hlavné menu zobrazí vodorovne */
+    /* Prípadne uprav zarovnanie alebo medzery */
+    gap: var(--spacing-md); /* Medzera medzi hlavnými položkami */
+}
+
+nav ul li {
+    position: relative; /* Dôležité pre správne umiestnenie podmenu absolútne */
+    margin-right: 0; /* Ak je medzera definovaná v gap */
+}
+
+nav ul li a {
+    display: block; /* Aby padding fungoval správne */
+    padding: var(--spacing-sm);
+    color: var(--color-text-dark); /* Farba textu odkazu */
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: var(--color-primary); /* Zmena farby pri hover */
+}
+
+/* --- Štýly pre podmenu (.submenu) --- */
+nav ul li .submenu {
+    position: absolute; /* Umiestni podmenu relatívne k rodičovskému li */
+    top: 100%; /* Umiestni podmenu presne pod spodnú hranu rodičovskej položky */
+    left: 0; /* Zarovnaj podmenu s ľavou hranou rodičovskej položky */
+    background-color: var(--color-background-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    min-width: 180px; /* Minimálna šírka podmenu */
+    z-index: 100; /* Zabezpečí, že podmenu bude nad ostatným obsahom */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Jemný tieň pre efekt "vystúpenia" */
+
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Odstráň predvolené marginy */
+
+
+    /* --- Štýly pre skrytie a animáciu "rollout" --- */
+    visibility: hidden; /* Skryje podmenu, ale element si drží miesto */
+    opacity: 0; /* Začína úplne priehľadne */
+    max-height: 0; /* Začína s nulovou výškou - pre "rollout" efekt */
+    overflow: hidden; /* Skryje obsah, ktorý presahuje nízku max-height */
+    transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Plynulý prechod */
+    /* --------------------------------------------- */
+}
+
+/* Zobrazenie podmenu pri najazdení myšou na rodičovskú položku <li> */
+nav ul li.has-submenu:hover > .submenu { /* Cieľuje priameho potomka .submenu triedy */
+    visibility: visible; /* Zviditeľní podmenu */
+    opacity: 1; /* Plynulé zobrazenie */
+    max-height: 300px; /* Nastaví dostatočne veľkú výšku, aby sa zobrazil celý obsah. */
+    /* Túto hodnotu možno budeš musieť upraviť podľa výšky tvojho podmenu. */
+    transition-delay: 0.1s; /* Voliteľné: malé oneskorenie pred zobrazením */
+}
+
+/* Štýly pre jednotlivé položky v podmenu */
+nav ul li .submenu li {
+    margin-right: 0; /* Odstráň margin medzi hlavnými položkami */
+    border-bottom: 1px solid var(--color-border); /* Deliaca čiara */
+}
+nav ul li .submenu li:last-child {
+    border-bottom: none; /* Posledná položka bez čiary */
+}
+
+nav ul li .submenu li a {
+    padding: var(--spacing-sm) var(--spacing-md); /* Odsadenie pre odkazy v podmenu */
+    white-space: nowrap; /* Zabezpečí, že text odkazu sa nerozdelí na viac riadkov */
+    font-weight: normal; /* Normálna hrúbka písma */
+    color: var(--color-text-light); /* Svetlejšia farba textu */
+}
+
+nav ul li .submenu li a:hover {
+    background-color: var(--color-background-light); /* Jemné pozadie pri hover */
+    color: var(--color-text-dark); /* Tmavší text pri hover */
+}
+
+/* --- Koniec štýlov pre navigačné menu --- */
+
+
+/* --- Čistota kódu a organizácia --- */
+/* Používanie CSS Vlastností pomáha pri konzistentnosti a jednoduchšej zmene dizajnu */
+/* Štýly pre jednotlivé komponenty je vhodné organizovať buď priamo v JS/TS súboroch (CSS-in-JS),
+   pomocou CSS modulov (.module.css súbory) alebo v samostatných .css/.scss súboroch */

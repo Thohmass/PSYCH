@@ -75,7 +75,7 @@ const SurveyPage: React.FC = () => {
 
 
   return (
-    <div>
+    <div className="container survey-page">
       <h1>Dotazník pre zistenie potreby psychologickej pomoci</h1>
 
       {!isSurveyCompleted ? (

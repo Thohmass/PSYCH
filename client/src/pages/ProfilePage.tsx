@@ -68,7 +68,7 @@ const ProfilePage: React.FC = () => {
   }
 
   return (
-    <div className="user-profile-page">
+    <div className="container user-profile-page">
       <p><strong>Email:</strong> {user.email}</p>
       <p><strong>Rola:</strong> {user.role}</p>
       <p><strong>Dátum založenia účtu:</strong> {new Date(user.timeStamp).toLocaleString()}</p>
