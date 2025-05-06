@@ -22,7 +22,7 @@ const SearchForm: React.FC<SearchFormProps> = () => {
             queryParams.append('specialization', specialization);
         }
 
-        navigate(`/search?${queryParams.toString()}`);
+        navigate(`/results?${queryParams.toString()}`);
     };
 
     return (

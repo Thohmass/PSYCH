@@ -21,6 +21,7 @@ import {logoutUser} from "./services/authService";
 import ClientRegistrationForm from "./components/ClientRegistrationForm";
 import ProfilePage from "./pages/ProfilePage";
 import SurveyPage from "./pages/SurveyPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
     const { isAuthenticated, logout, userRole } = useAuth();
@@ -34,7 +35,10 @@ function App() {
                         <Link to="/">Domov</Link>
                     </li>
                     <li>
-                        <Link to="/search">Výsledky vyhľadávania</Link>
+                        <Link to="/search">Nájdi psychológa</Link>
+                    </li>
+                    <li>
+                        <Link to="/results">Výsledky vyhľadávania</Link>
                     </li>
                     <li>
                         <Link to={"/survey"}>Odporúčací dotazník</Link>
@@ -46,40 +50,44 @@ function App() {
                         <Link to="/feedback">Feedback :)</Link>
                     </li>
                     {isAuthenticated ? (
-                        <>
-                            {userRole === 'admin' ? (
-                                <li>
-                                    <Link to="/admin">Admin Dashboard</Link>
-                                </li>
-                            ) : (
-                                <li>
-                                    <Link to="/profile">Profile Page</Link>
-                                </li>
-                            )}
+                      <>
+                          {userRole === 'admin' ? (
                             <li>
-                                <button onClick={() => {
-                                    logoutUser();
-                                    logout();
-                                    // navigate("/login");
-                                }}>Odhlásiť sa</button>
+                                <Link to="/admin">Admin Dashboard</Link>
                             </li>
-                        </>
+                          ) : (
+                            <li>
+                                <Link to="/profile">Profile Page</Link>
+                            </li>
+                          )}
+                          <li>
+                              <button onClick={() => {
+                                  logoutUser();
+                                  logout();
+                                  // navigate("/login");
+                              }}>Odhlásiť sa
+                              </button>
+                          </li>
+                      </>
                     ) : (
-                        <>
-                            <li>
-                                <Link to="/login">Prihlásiť sa</Link>
-                            </li>
-                            <li>
-                                <p>Registrovať sa:  <Link to="/register-client">Klient</Link>  |  <Link to="/register-psychologist">Psychológ</Link></p>
-                            </li>
-                        </>
+                      <>
+                          <li>
+                              <Link to="/login">Prihlásiť sa</Link>
+                          </li>
+                          <li>
+                              <p>Registrovať sa: <Link
+                                to="/register-client">Klient</Link> | <Link
+                                to="/register-psychologist">Psychológ</Link></p>
+                          </li>
+                      </>
                     )}
                 </ul>
             </nav>
 
             <Routes>
-                <Route path="/" element={<SearchForm/>}/>
-                <Route path="/search" element={<SearchResultsPage/>}/>
+                <Route path="/" element={<HomePage/>}/>
+                <Route path="/search" element={<SearchForm/>}/>
+                <Route path="/results" element={<SearchResultsPage/>}/>
                 <Route path="/forum" element={<ForumPostList/>}/>
                 <Route path="/forum/:postId" element={<ForumPostDetail/>}/>
                 <Route path="/feedback" element={<FeedbackForm/>}/>
