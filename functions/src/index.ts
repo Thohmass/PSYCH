@@ -23,6 +23,8 @@ app.use("/api/forum", forumRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/survey", surveyRoutes);
 
+export {app};
+
 export const api = onRequest(
   {
     // secrets: [jwtSecret],

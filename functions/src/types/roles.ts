@@ -32,7 +32,7 @@ export interface User {
 }
 
 export interface Psychologist {
-    userID: string;
+    userId: string;
     name: string;
     lastName: string;
     description: string;

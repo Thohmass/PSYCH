@@ -29,3 +29,22 @@ export const getPsychologists = async (): Promise<Psychologist[]> => {
         throw error;
     }
 };
+
+export const editPsychologistProfile = async (data: Psychologist) => {
+    try {
+        const response = await fetch(`/api/profile`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Chyba pri zmene údajov psychológa: ", error,)
+        throw error;
+    }
+}
